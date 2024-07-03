@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://ds37bq1nqps5j"]
+
+[ext_resource type="PackedScene" uid="uid://bcls6p787wls7" path="res://Turrets/155mm/155mm.glb" id="1_3q55l"]
+[ext_resource type="Script" path="res://Turrets/155mm/155mm.gd" id="2_swrw2"]
+[ext_resource type="PackedScene" uid="uid://h7emdjiv204w" path="res://Other/placeholder_explosion/placeholder_explosion.tscn" id="3_10u0j"]
+[ext_resource type="AudioStream" uid="uid://dglqyu5jtrpvv" path="res://Turrets/155mm/shell_out_enemy_big_01.wav" id="4_231pi"]
+[ext_resource type="Animation" uid="uid://du30wpgtb44nk" path="res://Turrets/155mm/PistonAnim.res" id="4_cv46e"]
+[ext_resource type="Texture2D" uid="uid://bom7m7wxdt00r" path="res://Turrets/155mm/155mm_icon.png" id="4_fab45"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c22kd"]
+_data = {
+"PistonAnim": ExtResource("4_cv46e")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fhqf2"]
+radius = 35.0
+
+[node name="155mm" instance=ExtResource("1_3q55l")]
+script = ExtResource("2_swrw2")
+hit_effect_scene = ExtResource("3_10u0j")
+icon = ExtResource("4_fab45")
+
+[node name="Base" parent="." index="0" groups=["navigation_object"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Elevation" parent="Base/Body" index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.48726, 3.44354, 0)
+
+[node name="Skeleton3D" parent="Base/Body/Elevation/Rig" index="0"]
+bones/5/position = Vector3(-0.790316, 1.35816, 2.39147e-06)
+bones/6/position = Vector3(6.27058e-09, 4.74599, -3.77842e-06)
+
+[node name="Muzzle" type="Marker3D" parent="Base/Body/Elevation" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.88495e-07, 0, -6.6)
+
+[node name="piston_anim" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+"155mm_anim": SubResource("AnimationLibrary_c22kd")
+}
+
+[node name="detection_range" type="Area3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="detection_range" index="0"]
+shape = SubResource("SphereShape3D_fhqf2")
+
+[node name="fire_rate_timer" type="Timer" parent="." index="4"]
+
+[node name="reload_timer" type="Timer" parent="." index="5"]
+
+[node name="fire_sound" type="AudioStreamPlayer3D" parent="." index="6"]
+stream = ExtResource("4_231pi")
+attenuation_model = 1
+max_db = -12.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished" flags=18]
+[connection signal="body_entered" from="detection_range" to="." method="_on_detection_range_body_entered" flags=18]
+[connection signal="body_exited" from="detection_range" to="." method="_on_detection_range_body_exited" flags=18]
+[connection signal="timeout" from="fire_rate_timer" to="." method="_on_fire_rate_timer_timeout" flags=18]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2a1no0wotqy5"]
+
+[ext_resource type="Script" path="res://Units/path_dummy/path_dummy.gd" id="1_78rrv"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_k3vbi"]
+size = Vector3(1.255, 2.48, 0.335)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_woopr"]
+points = PackedVector3Array(-0.261712, -0.609914, -0.167015, -0.277619, -0.647619, 0.186667, 0.26881, -0.647619, 0.186667, 0.26881, -0.546318, -0.177619, -0.0145139, 0.647619, -0.177619, 0.0258692, 0.627333, 0.186667, -0.0346787, 0.586889, 0.186667, -0.277619, -0.586889, -0.177619, 0.0258692, 0.627333, -0.177619, 0.253631, -0.61164, -0.1675, 0.26881, -0.546318, 0.186667, -0.277619, -0.586889, 0.186667, -0.0346787, 0.586889, -0.177619, -0.0145139, 0.647619, 0.186667)
+
+[node name="path_dummy" type="PathFollow3D"]
+rotation_mode = 1
+use_model_front = true
+loop = false
+script = ExtResource("1_78rrv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 1.74846e-07, -7.64274e-15, 0, -4.37114e-08, -1, -1.74846e-07, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PrismMesh_k3vbi")
+
+[node name="collider" type="Area3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="collider"]
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_woopr")
+
+[connection signal="area_entered" from="collider" to="." method="_on_collider_area_entered"]

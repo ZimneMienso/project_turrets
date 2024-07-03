@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://crw1g10ecu8oa"]
+
+[ext_resource type="Script" path="res://Buildings/path_spawner/path_spawner.gd" id="1_hypu2"]
+[ext_resource type="PackedScene" uid="uid://b2a1no0wotqy5" path="res://Units/path_dummy/path_dummy.tscn" id="2_y78xi"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wthbc"]
+
+[sub_resource type="Curve3D" id="Curve3D_8u06v"]
+resource_local_to_scene = true
+
+[node name="path_spawner" type="Marker3D" groups=["spawners"]]
+script = ExtResource("1_hypu2")
+spawnee_scene = ExtResource("2_y78xi")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_wthbc")
+
+[node name="path" type="Path3D" parent="."]
+curve = SubResource("Curve3D_8u06v")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout" flags=18]

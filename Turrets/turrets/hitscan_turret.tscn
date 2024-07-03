@@ -1,0 +1,90 @@
+[gd_scene load_steps=11 format=3 uid="uid://dwb4et6xqq23o"]
+
+[ext_resource type="Script" path="res://Turrets/hitscan_turret/HitscanTurret.gd" id="1_ke0qs"]
+[ext_resource type="PackedScene" uid="uid://h7emdjiv204w" path="res://Other/placeholder_explosion/placeholder_explosion.tscn" id="2_4q0ss"]
+[ext_resource type="Texture2D" uid="uid://db7886yoejfrr" path="res://Turrets/hitscan_turret/debug_icon.png" id="2_sr4gd"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0p5ub"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kvtr4"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_csihq"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_x6kcn"]
+radius = 11.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sa46n"]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pu8mn"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gd1lj"]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 4.97
+
+[node name="HitscanTurret" type="StaticBody3D" groups=["buildings"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_ke0qs")
+icon = ExtResource("2_sr4gd")
+hit_effect_scene = ExtResource("2_4q0ss")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_0p5ub")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["navigation_object"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_kvtr4")
+
+[node name="barrel_pivot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="barrel_mesh" type="MeshInstance3D" parent="barrel_pivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -9.53674e-07, -2.38419e-07, -1)
+mesh = SubResource("CylinderMesh_csihq")
+
+[node name="muzzle" type="Marker3D" parent="barrel_pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
+
+[node name="detection_range" type="Area3D" parent="barrel_pivot"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="barrel_pivot/detection_range"]
+shape = SubResource("SphereShape3D_x6kcn")
+
+[node name="targeting_debug" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 0)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="targeting_debug"]
+transform = Transform3D(-0.707107, 0.707107, 3.09086e-08, 2.11758e-22, -4.37114e-08, 1, 0.707107, 0.707107, 3.09086e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_sa46n")
+surface_material_override/0 = SubResource("StandardMaterial3D_pu8mn")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="targeting_debug"]
+transform = Transform3D(-0.707107, -0.707107, -3.09086e-08, 2.11758e-22, -4.37114e-08, 1, -0.707107, 0.707107, 3.09086e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_sa46n")
+surface_material_override/0 = SubResource("StandardMaterial3D_pu8mn")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="targeting_debug"]
+visible = false
+mesh = SubResource("CylinderMesh_gd1lj")
+surface_material_override/0 = SubResource("StandardMaterial3D_pu8mn")
+
+[node name="fire_rate_timer" type="Timer" parent="."]
+
+[node name="reload_timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="barrel_pivot/detection_range" to="." method="_on_detection_range_body_entered"]
+[connection signal="body_exited" from="barrel_pivot/detection_range" to="." method="_on_detection_range_body_exited"]
+[connection signal="timeout" from="fire_rate_timer" to="." method="_on_fire_rate_timer_timeout"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx8mvklm8p54u"]
+
+[ext_resource type="Script" path="res://Buildings/Core/Core.gd" id="1_dnjit"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ee0f5"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28xbn"]
+albedo_color = Color(0.0627451, 0.729412, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_o5uxi"]
+material = SubResource("StandardMaterial3D_28xbn")
+top_radius = 1.0
+bottom_radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_vponc"]
+material = SubResource("StandardMaterial3D_28xbn")
+radius = 1.25
+height = 2.5
+
+[node name="Core" type="StaticBody3D" groups=["buildings", "cores"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_dnjit")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_ee0f5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_o5uxi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = SubResource("SphereMesh_vponc")
