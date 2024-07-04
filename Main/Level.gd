@@ -107,10 +107,11 @@ func create_path(startpoint:Vector3, endpoint:Vector3, map:RID, path:Path3D, opt
 	for i in path_points.size():
 		curve.add_point(path_points[i])
 	for i in curve.get_baked_points().size():
-		if i>0 and i<path_points.size():
-			var direction:Vector3 = (curve.get_point_position(i-1) - curve.get_point_position(i+1))
-			curve.set_point_in(i,Vector3(2,0,3))
-			curve.set_point_out(i,direction)
+		#if i<path_points.size():
+			#curve.set_point_out(i,(curve.get_point_position(i+1)-curve.get_point_position(i)).normalized())
+		#if i>0:
+		#	curve.set_point_in(i,direction - curve.get_point_position(i))
+		pass
 
 func create_path_for_spawners():
 	var spawners:Array[Node] = get_tree().get_nodes_in_group("spawners")

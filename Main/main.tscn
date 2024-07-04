@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://246faii746cf"]
+[gd_scene load_steps=14 format=3 uid="uid://246faii746cf"]
 
 [ext_resource type="MeshLibrary" uid="uid://1e8q6vnk4mdt" path="res://Other/tile_lib.tres" id="1_3sqym"]
 [ext_resource type="Script" path="res://Main/Camera Pivot.gd" id="1_noqef"]
@@ -17,8 +17,15 @@ geometry_source_group_name = &"navigation_object"
 agent_height = 0.25
 agent_radius = 2.0
 
-[sub_resource type="Curve3D" id="Curve3D_5380g"]
+[sub_resource type="Curve3D" id="Curve3D_ahlfg"]
 resource_local_to_scene = true
+
+[sub_resource type="Curve3D" id="Curve3D_olyhy"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -8.52428, 0, 8.57476, -14, 1, 5, 14, -1, -5, 12.6808, 0, 11.8371, 0, 0, 0, 0, 0, 0, 22.3512, 0, -3.83369),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
 
 [node name="Main" type="Node"]
 metadata/_edit_vertical_guides_ = [-30.0]
@@ -137,13 +144,17 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02917, -0.05, 54.6352)
 
 [node name="path" parent="path_spawner" index="2"]
-curve = SubResource("Curve3D_5380g")
+curve = SubResource("Curve3D_ahlfg")
 
 [node name="path_spawner2" parent="." instance=ExtResource("10_caf2f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 0, -50)
 
 [node name="path_spawner3" parent="." instance=ExtResource("10_caf2f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 0, -9)
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+curve = SubResource("Curve3D_olyhy")
 
 [connection signal="request_build_at_cursor" from="ui" to="level/tile_map" method="_on_build_at_cursor_request"]
 [connection signal="request_deconstruction_at_cursor" from="ui" to="level/tile_map" method="_on_deconstruction_at_cursor_request"]

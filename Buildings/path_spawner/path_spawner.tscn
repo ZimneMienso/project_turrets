@@ -11,6 +11,7 @@ resource_local_to_scene = true
 [node name="path_spawner" type="Marker3D" groups=["spawners"]]
 script = ExtResource("1_hypu2")
 spawnee_scene = ExtResource("2_y78xi")
+spawn_period = 5.0
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
