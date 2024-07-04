@@ -146,12 +146,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02917, -0.05, 54.6352)
 [node name="path" parent="path_spawner" index="2"]
 curve = SubResource("Curve3D_ahlfg")
 
-[node name="path_spawner2" parent="." instance=ExtResource("10_caf2f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 0, -50)
-
-[node name="path_spawner3" parent="." instance=ExtResource("10_caf2f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 0, -9)
-
 [node name="Path3D" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
 curve = SubResource("Curve3D_olyhy")
