@@ -1,10 +1,8 @@
-extends PathFollow3D
+extends CharacterBody3D
 
 @export var speed: float = 10
 @export var max_health: float = 3
 @export var damage: float = 1
-
-@onready var collider:Area3D = $collider
 
 var health: float
 
@@ -30,8 +28,7 @@ func _physics_process(delta):
 	#		queue_free()
 	#		break
 #Path movement
-	progress = progress + speed * delta
-	pass
+	$"..".progress = $"..".progress + speed * delta
 
 func receive_damage(received_damage: float):
 	health -= received_damage
@@ -39,9 +36,9 @@ func receive_damage(received_damage: float):
 		die()
 
 func die():
-	queue_free()
+	$"..".queue_free()
 
-func _on_collider_area_entered(area):
-	if area.is_in_group("cores"):
-		area.receive_damage(damage)
+func _on_hurtbox_body_entered(body):
+	if body.is_in_group("cores"):
+		body.receive_damage(damage)
 		die()

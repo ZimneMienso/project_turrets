@@ -14,8 +14,8 @@ var level_map:RID
 
 func _ready():
 	call_deferred("nav_server_setup")
-	await get_tree().physics_frame
-	await get_tree().physics_frame
+	for i in 6:
+		await get_tree().physics_frame
 	create_path_for_spawners()
 	
 var prev_cell
@@ -99,19 +99,20 @@ func nav_server_setup() -> void:
 	await get_tree().physics_frame
 
 #Takes a Path3D and assign the path from -> to as its curve
-func create_path(startpoint:Vector3, endpoint:Vector3, map:RID, path:Path3D, optimize:bool=true) -> void:
+func create_path(startpoint:Vector3, endpoint:Vector3, map:RID, path:Path3D, optimize:bool=true, curveture_factor:float=0.1) -> void:
 	var path_points:PackedVector3Array = NavigationServer3D.map_get_path(map, startpoint, endpoint, optimize)
 	if path_points.size() == 0: print("path creation failed (Level.gd, create_path())")
 	var curve:Curve3D = path.curve
 	curve.clear_points()
 	for i in path_points.size():
 		curve.add_point(path_points[i])
-	for i in curve.get_baked_points().size():
-		#if i<path_points.size():
-			#curve.set_point_out(i,(curve.get_point_position(i+1)-curve.get_point_position(i)).normalized())
-		#if i>0:
-		#	curve.set_point_in(i,direction - curve.get_point_position(i))
-		pass
+	for i in curve.get_point_count():
+		if i>0 and i<curve.get_point_count()-1:
+			var prev_p:Vector3 = curve.get_point_position(i-1)
+			var curr_p:Vector3 = curve.get_point_position(i)
+			var next_p:Vector3 = curve.get_point_position(i+1)
+			curve.set_point_in(i,(prev_p-next_p)*curveture_factor)
+			curve.set_point_out(i,(next_p-prev_p)*curveture_factor)
 
 func create_path_for_spawners():
 	var spawners:Array[Node] = get_tree().get_nodes_in_group("spawners")

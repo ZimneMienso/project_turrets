@@ -32,6 +32,7 @@ func _on_detection_range_body_exited(body):
 		can_shoot_checklist["target"] = false
 
 func _on_detection_range_body_entered(body):
+	print("detected")
 	targets.append(body)
 	can_shoot_checklist["target"] = true
 	
