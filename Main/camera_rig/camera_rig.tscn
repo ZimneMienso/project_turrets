@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ogv732b1atc0"]
+
+[ext_resource type="Script" path="res://Main/camera_rig/camera_rig.gd" id="1_ex8xa"]
+
+[node name="camera_rig" type="Marker3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, -2, 0)
+script = ExtResource("1_ex8xa")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707106, 0, 18, 25)
+current = true

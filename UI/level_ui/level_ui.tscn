@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://e6v17pmpwrl6"]
+
+[ext_resource type="Script" path="res://UI/level_ui/level_ui.gd" id="1_daxyd"]
+[ext_resource type="PackedScene" uid="uid://qp0fwt8rsj2n" path="res://UI/level_ui/buildable_button/buildable_button.tscn" id="2_0o6ra"]
+[ext_resource type="Texture2D" uid="uid://d3uyeqssnc1t4" path="res://UI/icons/deconstruct_icon.png" id="3_3gf7p"]
+
+[node name="ui" type="CanvasLayer"]
+script = ExtResource("1_daxyd")
+build_button_scene = ExtResource("2_0o6ra")
+
+[node name="build_menu" type="PanelContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="buildable_button_container" type="HBoxContainer" parent="build_menu"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+alignment = 1
+
+[node name="deconstruct_button" type="VBoxContainer" parent="build_menu/buildable_button_container"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="name" type="Label" parent="build_menu/buildable_button_container/deconstruct_button"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "Delete"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="button" type="Button" parent="build_menu/buildable_button_container/deconstruct_button"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+icon = ExtResource("3_3gf7p")
+expand_icon = true
+
+[node name="price" type="Label" parent="build_menu/buildable_button_container/deconstruct_button"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="money_display" type="PanelContainer" parent="."]
+offset_right = 124.0
+offset_bottom = 31.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="money_display"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="money_display/HBoxContainer"]
+layout_mode = 2
+text = "Stonks:"
+
+[node name="money_label" type="Label" parent="money_display/HBoxContainer"]
+layout_mode = 2
+text = "1000V$"
+
+[connection signal="pressed" from="build_menu/buildable_button_container/deconstruct_button/button" to="." method="_on_decon_button_pressed"]

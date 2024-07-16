@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbpk3naffow51"]
+
+[ext_resource type="Texture2D" uid="uid://db7886yoejfrr" path="res://UI/icons/debug_icon.png" id="1_6pfuv"]
+[ext_resource type="Script" path="res://UI/main_menu/level_select_button/level_select_button.gd" id="1_a7xae"]
+
+[node name="level_select_button" type="HBoxContainer"]
+offset_right = 192.0
+offset_bottom = 56.0
+alignment = 1
+script = ExtResource("1_a7xae")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+icon = ExtResource("1_6pfuv")
+expand_icon = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="level_name" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Level name"
+
+[node name="level_dscr" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Level description"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

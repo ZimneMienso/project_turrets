@@ -8,16 +8,22 @@ signal request_deconstruction_at_cursor
 @onready var level: Node3D = $"../level/tile_map"
 
 var money_label:Label
+var unlock_data:Array[Buildable_Data]
 
 func _ready():
-	var data = $temp_data.buildables_data
-	update_build_buttons(data)
+	update_build_buttons(unlock_data)
 	money_label = $money_display/HBoxContainer/money_label
 
 #func update_money(number_to_display):
 #	money = number_to_display
 
+var buttons:Array[Node]=[]
 func update_build_buttons(data):
+	#clear previously made buttons
+	for i in buttons:
+		i.queue_free()
+		buttons.erase(i)
+	#instantiate buttons from data, order and add to "buttons" array
 	for i in data.size():
 		var buildable = data[i]
 		var new_button: = build_button_scene.instantiate()
@@ -25,6 +31,7 @@ func update_build_buttons(data):
 		new_button.initialize(buildable)
 		new_button.buildable_button_pressed.connect(_on_buildable_button_pressed)
 		$build_menu/buildable_button_container.move_child($build_menu/buildable_button_container/deconstruct_button,-1)
+		buttons.append(new_button)
 
 var build_mode_selection
 func _on_buildable_button_pressed(data: Buildable_Data):

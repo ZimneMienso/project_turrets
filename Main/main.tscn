@@ -1,26 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://246faii746cf"]
+[gd_scene load_steps=3 format=3 uid="uid://246faii746cf"]
 
-[ext_resource type="MeshLibrary" uid="uid://1e8q6vnk4mdt" path="res://Other/tile_lib.tres" id="1_3sqym"]
-[ext_resource type="Script" path="res://Main/Camera Pivot.gd" id="1_noqef"]
-[ext_resource type="Script" path="res://Main/Level.gd" id="2_shv2c"]
-[ext_resource type="MeshLibrary" uid="uid://bcsn41o1dli0v" path="res://Other/overlay_lib.tres" id="4_2isf2"]
-[ext_resource type="PackedScene" uid="uid://bx8mvklm8p54u" path="res://Buildings/Core/core.tscn" id="4_owoyq"]
-[ext_resource type="Script" path="res://Main/ui.gd" id="8_jrgof"]
-[ext_resource type="PackedScene" uid="uid://qp0fwt8rsj2n" path="res://UI/buildable_button/buildable_button.tscn" id="9_4u623"]
-[ext_resource type="Texture2D" uid="uid://d3uyeqssnc1t4" path="res://UI/deconstruct_icon.png" id="9_28ae3"]
-[ext_resource type="Script" path="res://Main/temp_data.gd" id="10_65ng5"]
-[ext_resource type="PackedScene" uid="uid://crw1g10ecu8oa" path="res://Buildings/path_spawner/path_spawner.tscn" id="10_caf2f"]
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_bu6dm"]
-geometry_source_geometry_mode = 2
-geometry_source_group_name = &"navigation_object"
-agent_height = 0.25
-agent_radius = 2.0
-
-[sub_resource type="Curve3D" id="Curve3D_ahlfg"]
-resource_local_to_scene = true
+[ext_resource type="Script" path="res://Main/main.gd" id="1_akbct"]
+[ext_resource type="Script" path="res://UI/level_ui/temp_data.gd" id="2_7vo0a"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_akbct")
 metadata/_edit_vertical_guides_ = [-30.0]
 
 [node name="Lights" type="Node" parent="."]
@@ -33,113 +17,5 @@ shadow_enabled = true
 transform = Transform3D(-0.212012, -0.573576, 0.79124, -0.148453, 0.819152, 0.554032, -0.965926, -5.67582e-07, -0.258819, 29, 21, 25)
 shadow_enabled = true
 
-[node name="ui" type="CanvasLayer" parent="."]
-script = ExtResource("8_jrgof")
-build_button_scene = ExtResource("9_4u623")
-
-[node name="build_menu" type="PanelContainer" parent="ui"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="buildable_button_container" type="HBoxContainer" parent="ui/build_menu"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-alignment = 1
-
-[node name="deconstruct_button" type="VBoxContainer" parent="ui/build_menu/buildable_button_container"]
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-
-[node name="name" type="Label" parent="ui/build_menu/buildable_button_container/deconstruct_button"]
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-text = "Delete"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="button" type="Button" parent="ui/build_menu/buildable_button_container/deconstruct_button"]
-custom_minimum_size = Vector2(70, 70)
-layout_mode = 2
-icon = ExtResource("9_28ae3")
-expand_icon = true
-
-[node name="price" type="Label" parent="ui/build_menu/buildable_button_container/deconstruct_button"]
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="money_display" type="PanelContainer" parent="ui"]
-offset_right = 124.0
-offset_bottom = 31.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ui/money_display"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="ui/money_display/HBoxContainer"]
-layout_mode = 2
-text = "Stonks:"
-
-[node name="money_label" type="Label" parent="ui/money_display/HBoxContainer"]
-layout_mode = 2
-text = "1000V$"
-
-[node name="temp_data" type="Node" parent="ui"]
-script = ExtResource("10_65ng5")
-
-[node name="level" type="Node3D" parent="."]
-
-[node name="tile_map" type="GridMap" parent="level" groups=["navigation_object"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
-mesh_library = ExtResource("1_3sqym")
-cell_size = Vector3(4, 4, 4)
-data = {
-"cells": PackedInt32Array(65535, 4, 0, 0, 4, 0, 1, 4, 0, 1, 3, 0, 0, 3, 0, 2, 3, 0, 3, 2, 0, 4, 1, 0, 4, 0, 0, 5, 0, 0, 5, 65535, 0, 4, 65535, 0, 4, 2, 0, 5, 1, 0, 65531, 65533, 0, 65531, 65534, 0, 65531, 65535, 0, 65531, 0, 0, 65531, 1, 0, 65531, 2, 0, 65531, 3, 0, 65531, 4, 0, 65532, 65533, 0, 65532, 65534, 0, 65532, 65535, 0, 65532, 0, 0, 65532, 1, 0, 65532, 2, 0, 65532, 3, 0, 65532, 4, 0, 65533, 65533, 0, 65533, 65534, 0, 65533, 65535, 0, 65533, 0, 0, 65533, 1, 0, 65533, 2, 0, 65533, 3, 0, 65533, 4, 0, 65534, 65533, 0, 65534, 65534, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 1, 0, 65534, 2, 0, 65534, 3, 0, 65534, 4, 0, 65535, 65533, 0, 65535, 65534, 0, 65535, 65535, 0, 65535, 0, 0, 65535, 1, 0, 65535, 2, 0, 65535, 3, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 1, 65533, 0, 1, 65534, 0, 1, 65535, 0, 1, 0, 0, 1, 1, 0, 1, 2, 0, 2, 65533, 0, 2, 65534, 0, 2, 65535, 0, 2, 0, 0, 2, 1, 0, 2, 2, 0, 2, 4, 0, 3, 65533, 0, 3, 65534, 0, 3, 65535, 0, 3, 0, 0, 3, 1, 0, 3, 3, 0, 3, 4, 0, 4, 65533, 0, 4, 65534, 0, 4, 3, 0, 4, 4, 0, 5, 65533, 0, 5, 65534, 0, 5, 2, 0, 5, 3, 0, 5, 4, 0, 65530, 4, 0, 65530, 3, 0, 65530, 2, 0, 65530, 1, 0, 65530, 65534, 0, 65530, 65533, 0, 65530, 65535, 0, 65530, 0, 0, 65529, 65533, 0, 65528, 65533, 0, 65527, 65533, 0, 65526, 65533, 0, 65525, 65533, 0, 65524, 65533, 0, 65523, 65533, 0, 65522, 65533, 0, 65522, 65534, 0, 65523, 65534, 0, 65524, 65534, 0, 65525, 65534, 0, 65526, 65534, 0, 65527, 65534, 0, 65528, 65534, 0, 65529, 65534, 0, 65529, 65535, 0, 65529, 0, 0, 65528, 0, 0, 65527, 0, 0, 65526, 0, 0, 65525, 0, 0, 65524, 0, 0, 65523, 0, 0, 65522, 0, 0, 65520, 0, 0, 65520, 65535, 0, 65528, 65535, 0, 65527, 65535, 0, 65526, 65535, 0, 65525, 65535, 0, 65524, 65535, 0, 65523, 65535, 0, 65522, 65535, 0, 65514, 65533, 0, 65514, 65534, 0, 65514, 65535, 0, 65514, 0, 0, 65514, 1, 0, 65514, 2, 0, 65514, 3, 0, 65514, 4, 0, 65515, 65533, 0, 65515, 65534, 0, 65515, 65535, 0, 65515, 0, 0, 65515, 1, 0, 65515, 2, 0, 65515, 3, 0, 65515, 4, 0, 65516, 65533, 0, 65516, 65534, 0, 65516, 65535, 0, 65516, 0, 0, 65516, 1, 0, 65516, 2, 0, 65516, 3, 0, 65516, 4, 0, 65517, 4, 0, 65518, 65533, 0, 65518, 65534, 0, 65518, 65535, 0, 65518, 0, 0, 65518, 1, 0, 65518, 2, 0, 65518, 3, 0, 65518, 4, 0, 65519, 65533, 0, 65520, 65533, 0, 65520, 65534, 0, 65520, 1, 0, 65520, 2, 0, 65520, 3, 0, 65520, 4, 0, 65521, 4, 0, 65522, 1, 0, 65522, 2, 0, 65522, 3, 0, 65522, 4, 0, 65523, 1, 0, 65523, 2, 0, 65523, 3, 0, 65523, 4, 0, 65524, 1, 0, 65524, 2, 0, 65524, 3, 0, 65524, 4, 0, 65525, 1, 0, 65525, 2, 0, 65525, 3, 0, 65525, 4, 0, 65526, 1, 0, 65526, 2, 0, 65526, 3, 0, 65526, 4, 0, 65527, 1, 0, 65527, 2, 0, 65527, 3, 0, 65527, 4, 0, 65528, 1, 0, 65528, 2, 0, 65528, 3, 0, 65528, 4, 0, 65529, 1, 0, 65529, 2, 0, 65529, 3, 0, 65529, 4, 0, 65526, 5, 655360, 65526, 6, 655360, 65526, 7, 655360, 65526, 8, 655360, 65526, 9, 655360, 65526, 10, 655360, 65527, 10, 655360, 65528, 10, 655360, 65529, 10, 655360, 65530, 10, 655360, 65531, 10, 655360, 65531, 9, 655360, 65531, 8, 655360, 65531, 7, 655360, 65532, 7, 655360, 65533, 7, 655360, 65534, 7, 655360, 65535, 7, 655360, 65535, 8, 655360, 65535, 9, 655360, 65535, 10, 655360, 65535, 11, 655360, 65535, 12, 655360, 65535, 13, 655360, 65529, 65532, 655360, 65529, 65531, 655360, 65529, 65530, 655360, 65529, 65529, 655360, 65529, 65528, 655360, 65529, 65527, 655360, 65529, 65526, 655360, 65529, 65525, 655360, 65528, 65525, 655360, 65527, 65525, 655360, 65526, 65525, 655360, 65525, 65525, 655360, 65524, 65525, 655360, 65524, 65526, 655360, 65524, 65527, 655360, 65524, 65528, 655360, 65524, 65529, 655360, 65523, 65529, 655360, 65522, 65529, 655360, 65521, 65529, 655360, 65520, 65529, 655360, 65519, 65529, 655360, 65519, 65528, 655360, 65519, 65527, 655360, 65519, 65526, 655360, 65519, 65525, 655360, 65519, 65524, 655360, 65519, 65523, 655360)
-}
-script = ExtResource("2_shv2c")
-metadata/_editor_floor_ = Vector3(0, 0, 0)
-
-[node name="core" parent="level/tile_map" instance=ExtResource("4_owoyq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 3, 0)
-
-[node name="overlay" type="GridMap" parent="level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
-mesh_library = ExtResource("4_2isf2")
-cell_size = Vector3(4, 4, 4)
-collision_layer = 0
-collision_mask = 0
-
-[node name="navigation" type="NavigationRegion3D" parent="level"]
-navigation_mesh = SubResource("NavigationMesh_bu6dm")
-
-[node name="camera_pivot" type="Marker3D" parent="level"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, -2, 0)
-script = ExtResource("1_noqef")
-
-[node name="Camera3D" type="Camera3D" parent="level/camera_pivot"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707106, 0, 18, 25)
-current = true
-
-[node name="path_spawner" parent="." instance=ExtResource("10_caf2f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02917, -0.05, 54.6352)
-
-[node name="path" parent="path_spawner" index="2"]
-curve = SubResource("Curve3D_ahlfg")
-
-[node name="path_spawner2" parent="." instance=ExtResource("10_caf2f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 0, -50)
-
-[node name="path_spawner3" parent="." instance=ExtResource("10_caf2f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 0, -9)
-
-[connection signal="request_build_at_cursor" from="ui" to="level/tile_map" method="_on_build_at_cursor_request"]
-[connection signal="request_deconstruction_at_cursor" from="ui" to="level/tile_map" method="_on_deconstruction_at_cursor_request"]
-[connection signal="pressed" from="ui/build_menu/buildable_button_container/deconstruct_button/button" to="ui" method="_on_decon_button_pressed"]
-
-[editable path="path_spawner"]
+[node name="temp_data" type="Node" parent="."]
+script = ExtResource("2_7vo0a")

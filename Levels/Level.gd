@@ -1,12 +1,13 @@
 extends GridMap
 
-@onready var camera = $"../camera_pivot/Camera3D"
+@onready var camera = $"../camera_rig/Camera3D"
 @onready var overlay = $"../overlay"
 @onready var ui = $"../../ui"
 @onready var core = $core
 
 
 @export_range(0.1,1) var agent_radius_factor: float = 0.8
+
 
 var tile_data_dic: Dictionary = {}
 var money: int = 1000

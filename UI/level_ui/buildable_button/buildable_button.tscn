@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://qp0fwt8rsj2n"]
 
-[ext_resource type="Script" path="res://UI/buildable_button/buildable_button.gd" id="1_qeoea"]
+[ext_resource type="Script" path="res://UI/level_ui/buildable_button/buildable_button.gd" id="1_qeoea"]
 
 [node name="buildable_button" type="VBoxContainer"]
 custom_minimum_size = Vector2(70, 0)
