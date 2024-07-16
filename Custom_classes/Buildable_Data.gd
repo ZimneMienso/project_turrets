@@ -1,3 +1,4 @@
+extends Resource
 class_name Buildable_Data
 
 var id: String

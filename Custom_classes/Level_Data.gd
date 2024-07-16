@@ -1,3 +1,4 @@
+extends Resource
 class_name Level_Data
 
 var level_name:String

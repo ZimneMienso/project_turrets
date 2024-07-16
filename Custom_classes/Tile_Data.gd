@@ -1,3 +1,4 @@
+extends Resource
 class_name Tile_Data
 
 var coordinates: Vector3i
