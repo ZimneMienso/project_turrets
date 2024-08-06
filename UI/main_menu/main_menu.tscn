@@ -42,11 +42,11 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="quit_map_button" type="Button" parent="level_selection_map"]
-layout_mode = 0
+layout_mode = 2
 offset_left = 1075.0
 offset_top = 602.0
 offset_right = 1139.0
-offset_bottom = 633.0
+offset_bottom = 642.0
 text = "<<Back"
 
 [connection signal="pressed" from="main_main_menu/play_button" to="." method="_on_play_button_pressed"]

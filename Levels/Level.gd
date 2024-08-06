@@ -1,13 +1,14 @@
-extends GridMap
+extends Node3D
 
-@onready var camera = $"../camera_rig/Camera3D"
-@onready var overlay = $"../overlay"
-@onready var ui = $"../../ui"
+@onready var camera = $camera_rig/Camera3D
+@onready var tile_map = $tile_map
+@onready var overlay = $overlay
 @onready var core = $core
-
 
 @export_range(0.1,1) var agent_radius_factor: float = 0.8
 
+#set by Main
+var ui:Node
 
 var tile_data_dic: Dictionary = {}
 var money: int = 1000
@@ -22,12 +23,13 @@ func _ready():
 var prev_cell
 func _physics_process(_delta):
 	var tile_coords = get_tile_under_cursor()
-
 	#highlighting cells
 	if prev_cell and prev_cell != tile_coords:
 		overlay.set_cell_item(prev_cell,-1)
 		prev_cell = null
 	if tile_coords:
+		#print(tile_coords)
+		#print(tile_map.map_to_local(tile_coords))
 		if overlay.get_cell_item(tile_coords) == -1:
 			overlay.set_cell_item(tile_coords,0)
 			prev_cell = tile_coords
@@ -40,7 +42,7 @@ func get_tile_under_cursor():
 	var querry = PhysicsRayQueryParameters3D.create(startpoint, endpoint, 0b1)
 	var ray_intesect = space_state.intersect_ray(querry)
 	if ray_intesect:
-		return local_to_map(to_local(ray_intesect.position))
+		return tile_map.local_to_map(ray_intesect.position)
 
 func _on_build_at_cursor_request(object_data: Buildable_Data) -> void:
 	#Check if there's a tile under cursor
@@ -63,7 +65,8 @@ func _on_build_at_cursor_request(object_data: Buildable_Data) -> void:
 	ui.update_money()
 	#Actually build the thing
 	var building = load(object_data.path).instantiate()
-	building.position = map_to_local(tile)
+	building.position = tile_map.map_to_local(tile)
+	print(building.position)
 	add_child(building)
 	#Add/update cell data
 	var new_tile_data: Tile_Data = Tile_Data.new()
@@ -93,16 +96,21 @@ func nav_server_setup() -> void:
 	level_map = get_world_3d().navigation_map
 	NavigationServer3D.map_set_up(level_map, Vector3.UP)
 	NavigationServer3D.map_set_active(level_map, true)
-	var nav_region: NavigationRegion3D = $"../navigation"
+	var nav_region: NavigationRegion3D = $navigation
 	NavigationServer3D.region_set_map(nav_region.get_region_rid(), level_map)
-	nav_region.navigation_mesh.agent_radius = cell_size.x/2 * agent_radius_factor
+	nav_region.navigation_mesh.agent_radius = tile_map.cell_size.x/2 * agent_radius_factor
 	nav_region.bake_navigation_mesh()
 	await get_tree().physics_frame
 
 #Takes a Path3D and assign the path from -> to as its curve
 func create_path(startpoint:Vector3, endpoint:Vector3, map:RID, path:Path3D, optimize:bool=true, curveture_factor:float=0.1) -> void:
-	var path_points:PackedVector3Array = NavigationServer3D.map_get_path(map, startpoint, endpoint, optimize)
-	if path_points.size() == 0: print("path creation failed (Level.gd, create_path())")
+	var path_points:PackedVector3Array
+	while path_points.size() == 0:
+		path_points = NavigationServer3D.map_get_path(map, startpoint, endpoint, optimize)
+		if path_points.size() == 0:
+			print("Level.gd: path generation failed, attemptin again")
+			await get_tree().physics_frame
+	#if path_points.size() == 0: print("path creation failed (Level.gd, create_path())")
 	var curve:Curve3D = path.curve
 	curve.clear_points()
 	for i in path_points.size():

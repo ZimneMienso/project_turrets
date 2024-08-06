@@ -5,13 +5,15 @@ signal request_deconstruction_at_cursor
 @export var build_button_scene: PackedScene
 
 @onready var buildable_button_container = $build_menu/buildable_button_container
-@onready var level: Node3D = $"../level/tile_map"
+
+#set by main
+var level: Node3D
 
 var money_label:Label
-var unlock_data:Array[Buildable_Data]
+var unlock_data:Unlock_Data
 
 func _ready():
-	update_build_buttons(unlock_data)
+	update_build_buttons(unlock_data.unlocked_turrets)
 	money_label = $money_display/HBoxContainer/money_label
 
 #func update_money(number_to_display):

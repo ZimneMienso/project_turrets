@@ -49,3 +49,7 @@ func update_level_buttons(data:Array[Level_Data]):
 		new_button.initialize(level_data)
 		new_button.level_select_button_pressed.connect(_on_level_select_button_pressed)
 		buttons.append(new_button)
+
+
+func _on_exit_button_pressed():
+	pass # Replace with function body.
