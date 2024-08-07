@@ -50,4 +50,5 @@ offset_bottom = 642.0
 text = "<<Back"
 
 [connection signal="pressed" from="main_main_menu/play_button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="main_main_menu/exit_button" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="level_selection_map/quit_map_button" to="." method="_on_quit_map_button_pressed"]

@@ -7,7 +7,7 @@ signal reqest_level_generation(level_data:Level_Data)
 @onready var main_menu:Control = $main_main_menu
 @onready var level_selection_map:Control = $level_selection_map
 
-var data:Array[Level_Data]
+var levels:Array[Level_Data]
 
 func _ready():
 	change_menu(main_menu)
@@ -18,9 +18,9 @@ func _ready():
 	test_lv_1_data.level_name = "Test Level 1"
 	test_lv_1_data.level_description = "test test"
 	test_lv_1_data.level_scene = load("res://Levels/test_level1.tscn")
-	data.append(test_lv_1_data)
+	levels.append(test_lv_1_data)
 	
-	update_level_buttons(data)
+	update_level_buttons(levels)
 
 func change_menu(new_selection:Node,hide_rest:bool=true):
 	if hide_rest: for object in get_children(): object.hide()
@@ -52,4 +52,5 @@ func update_level_buttons(data:Array[Level_Data]):
 
 
 func _on_exit_button_pressed():
-	pass # Replace with function body.
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	get_tree().quit()
