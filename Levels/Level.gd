@@ -118,7 +118,7 @@ func create_path(startpoint:Vector3, endpoint:Vector3, map:RID, path:Path3D, opt
 	for i in curve.get_point_count():
 		if i>0 and i<curve.get_point_count()-1:
 			var prev_p:Vector3 = curve.get_point_position(i-1)
-			var curr_p:Vector3 = curve.get_point_position(i)
+			#var curr_p:Vector3 = curve.get_point_position(i)
 			var next_p:Vector3 = curve.get_point_position(i+1)
 			curve.set_point_in(i,(prev_p-next_p)*curveture_factor)
 			curve.set_point_out(i,(next_p-prev_p)*curveture_factor)
