@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://463piyifvnco"]
 
 [ext_resource type="Script" path="res://base_level.gd" id="1_b5j3n"]
-[ext_resource type="Script" path="res://Levels/Level.gd" id="2_ou8rm"]
+[ext_resource type="Script" path="res://Levels/level.gd" id="2_2xpti"]
 [ext_resource type="MeshLibrary" uid="uid://b1i0vouf7b0d6" path="res://Other/tile_lib.tres" id="3_jhtmx"]
 [ext_resource type="MeshLibrary" uid="uid://bcsn41o1dli0v" path="res://Other/overlay_lib.tres" id="4_c4i6b"]
 [ext_resource type="PackedScene" uid="uid://ogv732b1atc0" path="res://Main/camera_rig/camera_rig.tscn" id="5_uhy27"]
@@ -21,7 +21,7 @@ resource_local_to_scene = true
 script = ExtResource("1_b5j3n")
 
 [node name="level_manager" type="Node" parent="."]
-script = ExtResource("2_ou8rm")
+script = ExtResource("2_2xpti")
 
 [node name="tile_map" type="GridMap" parent="." groups=["navigation_object"]]
 mesh_library = ExtResource("3_jhtmx")
