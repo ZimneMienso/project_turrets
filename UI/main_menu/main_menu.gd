@@ -12,13 +12,13 @@ var levels:Array[Level_Data]
 func _ready():
 	change_menu(main_menu)
 	
-	var test_lv_1_data:Level_Data = Level_Data.new()
-	test_lv_1_data.button_icon = load("res://UI/icons/debug_icon.png")
-	test_lv_1_data.button_position = Vector2(97,69)
-	test_lv_1_data.level_name = "Test Level 1"
-	test_lv_1_data.level_description = "test test"
-	test_lv_1_data.level_scene = load("res://Levels/test_level1.tscn")
-	levels.append(test_lv_1_data)
+	var base_level_data:Level_Data = Level_Data.new()
+	base_level_data.button_icon = load("res://UI/icons/debug_icon.png")
+	base_level_data.button_position = Vector2(97,69)
+	base_level_data.level_name = "Base Level"
+	base_level_data.level_description = "test test"
+	base_level_data.level_scene = load("res://Levels/base_level.tscn")
+	levels.append(base_level_data)
 	
 	update_level_buttons(levels)
 

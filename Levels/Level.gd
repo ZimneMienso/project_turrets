@@ -1,13 +1,14 @@
-extends Node3D
+extends Node
 
-@onready var camera = $camera_rig/Camera3D
-@onready var tile_map = $tile_map
-@onready var overlay = $overlay
-@onready var core = $core
+@onready var camera = $"../camera_rig/Camera3D"
+@onready var tile_map = $"../tile_map"
+@onready var overlay = $"../overlay"
+@onready var core = $"../core"
+@onready var navigation = $"../navigation"
 
 @export_range(0.1,1) var agent_radius_factor: float = 0.8
 
-#set by Main
+#set by Main using setter function at level
 var ui:Node
 
 var tile_data_dic: Dictionary = {}
@@ -35,7 +36,7 @@ func _physics_process(_delta):
 			prev_cell = tile_coords
 
 func get_tile_under_cursor():
-	var space_state = get_world_3d().direct_space_state
+	var space_state = tile_map.get_world_3d().direct_space_state
 	var mouse_pos = get_viewport().get_mouse_position()
 	var startpoint = camera.project_ray_origin(mouse_pos)
 	var endpoint = startpoint + camera.project_ray_normal(mouse_pos) * 100	
@@ -93,10 +94,10 @@ func _on_deconstruction_at_cursor_request() -> void:
 	tile_data.deconstruction_value = null
 
 func nav_server_setup() -> void:
-	level_map = get_world_3d().navigation_map
+	level_map = tile_map.get_world_3d().navigation_map
 	NavigationServer3D.map_set_up(level_map, Vector3.UP)
 	NavigationServer3D.map_set_active(level_map, true)
-	var nav_region: NavigationRegion3D = $navigation
+	var nav_region: NavigationRegion3D = navigation
 	NavigationServer3D.region_set_map(nav_region.get_region_rid(), level_map)
 	nav_region.navigation_mesh.agent_radius = tile_map.cell_size.x/2 * agent_radius_factor
 	nav_region.bake_navigation_mesh()

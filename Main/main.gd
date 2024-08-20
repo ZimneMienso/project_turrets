@@ -14,7 +14,7 @@ func _ready():
 	DirAccess.make_dir_absolute(profile_folder)
 	#initialize_profile()
 	show_main_menu()
-	#unlock_data = $temp_data.unlock_data
+	unlock_data = $temp_data.unlock_data
 	#var loaded_profile = read_profile_data(1)
 	res_to_dic(Unlock_Data.new())
 	#res_to_dic(Buildable_Data.new())

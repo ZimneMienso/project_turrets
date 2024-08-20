@@ -88,7 +88,7 @@ func _physics_process(delta):
 				#audiovisual effects
 				var hit_effect = hit_effect_scene.instantiate()
 				hit_effect.initialize(0.3, 4)
-				$/root/Main.add_child(hit_effect)
+				$"../".add_child(hit_effect)
 				hit_effect.global_position = hitscan_intersect.position
 				$AnimationPlayer.play("Fire")
 				$fire_sound.play()

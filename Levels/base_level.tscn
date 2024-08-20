@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2qf7vo5wg5qg"]
+[gd_scene load_steps=10 format=3 uid="uid://463piyifvnco"]
 
-[ext_resource type="MeshLibrary" uid="uid://b1i0vouf7b0d6" path="res://Other/tile_lib.tres" id="1_5poms"]
-[ext_resource type="Script" path="res://Levels/Level.gd" id="2_6adi3"]
-[ext_resource type="PackedScene" uid="uid://bx8mvklm8p54u" path="res://Buildings/Core/core.tscn" id="3_orpgs"]
-[ext_resource type="MeshLibrary" uid="uid://bcsn41o1dli0v" path="res://Other/overlay_lib.tres" id="4_7q0tu"]
-[ext_resource type="PackedScene" uid="uid://ogv732b1atc0" path="res://Main/camera_rig/camera_rig.tscn" id="5_3c5fd"]
-[ext_resource type="PackedScene" uid="uid://crw1g10ecu8oa" path="res://Buildings/path_spawner/path_spawner.tscn" id="6_lycco"]
+[ext_resource type="Script" path="res://base_level.gd" id="1_b5j3n"]
+[ext_resource type="Script" path="res://Levels/Level.gd" id="2_ou8rm"]
+[ext_resource type="MeshLibrary" uid="uid://b1i0vouf7b0d6" path="res://Other/tile_lib.tres" id="3_jhtmx"]
+[ext_resource type="MeshLibrary" uid="uid://bcsn41o1dli0v" path="res://Other/overlay_lib.tres" id="4_c4i6b"]
+[ext_resource type="PackedScene" uid="uid://ogv732b1atc0" path="res://Main/camera_rig/camera_rig.tscn" id="5_uhy27"]
+[ext_resource type="PackedScene" uid="uid://crw1g10ecu8oa" path="res://Buildings/path_spawner/path_spawner.tscn" id="6_5aahs"]
+[ext_resource type="PackedScene" uid="uid://bx8mvklm8p54u" path="res://Buildings/Core/core.tscn" id="7_gh3kn"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_bu6dm"]
 geometry_source_geometry_mode = 2
@@ -13,14 +14,17 @@ geometry_source_group_name = &"navigation_object"
 agent_height = 0.25
 agent_radius = 2.0
 
-[sub_resource type="Curve3D" id="Curve3D_ahlfg"]
+[sub_resource type="Curve3D" id="Curve3D_r5vg6"]
 resource_local_to_scene = true
 
-[node name="level" type="Node3D"]
-script = ExtResource("2_6adi3")
+[node name="level" type="Node"]
+script = ExtResource("1_b5j3n")
+
+[node name="level_manager" type="Node" parent="."]
+script = ExtResource("2_ou8rm")
 
 [node name="tile_map" type="GridMap" parent="." groups=["navigation_object"]]
-mesh_library = ExtResource("1_5poms")
+mesh_library = ExtResource("3_jhtmx")
 cell_size = Vector3(4, 4, 4)
 cell_center_y = false
 data = {
@@ -29,7 +33,7 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="overlay" type="GridMap" parent="."]
-mesh_library = ExtResource("4_7q0tu")
+mesh_library = ExtResource("4_c4i6b")
 cell_size = Vector3(4, 4, 4)
 cell_center_y = false
 collision_layer = 0
@@ -38,24 +42,24 @@ collision_mask = 0
 [node name="navigation" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_bu6dm")
 
-[node name="camera_rig" parent="." instance=ExtResource("5_3c5fd")]
+[node name="camera_rig" parent="." instance=ExtResource("5_uhy27")]
 
-[node name="path_spawner" parent="." instance=ExtResource("6_lycco")]
+[node name="path_spawner" parent="." instance=ExtResource("6_5aahs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.029, 0.05, 54.56)
 
 [node name="MeshInstance3D" parent="path_spawner" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 
 [node name="path" parent="path_spawner" index="2"]
-curve = SubResource("Curve3D_ahlfg")
+curve = SubResource("Curve3D_r5vg6")
 
-[node name="path_spawner2" parent="." instance=ExtResource("6_lycco")]
+[node name="path_spawner2" parent="." instance=ExtResource("6_5aahs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 0, -50)
 
-[node name="path_spawner3" parent="." instance=ExtResource("6_lycco")]
+[node name="path_spawner3" parent="." instance=ExtResource("6_5aahs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 0, -9)
 
-[node name="core" parent="." instance=ExtResource("3_orpgs")]
+[node name="core" parent="." instance=ExtResource("7_gh3kn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 0)
 
 [editable path="path_spawner"]

@@ -7,7 +7,7 @@ signal request_deconstruction_at_cursor
 @onready var buildable_button_container = $build_menu/buildable_button_container
 
 #set by main
-var level: Node3D
+var level: Node
 
 var money_label:Label
 var unlock_data:Unlock_Data
@@ -56,4 +56,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		build_mode_selection = null
 
 func update_money() -> void:
-	money_label.text = str(level.money)
+	money_label.text = str(level.get_money())
