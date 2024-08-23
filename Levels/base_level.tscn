@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://463piyifvnco"]
 
-[ext_resource type="Script" path="res://base_level.gd" id="1_b5j3n"]
 [ext_resource type="Script" path="res://Levels/level.gd" id="2_2xpti"]
+[ext_resource type="Script" path="res://Levels/level_manager.gd" id="2_fjqhi"]
 [ext_resource type="MeshLibrary" uid="uid://b1i0vouf7b0d6" path="res://Other/tile_lib.tres" id="3_jhtmx"]
 [ext_resource type="MeshLibrary" uid="uid://bcsn41o1dli0v" path="res://Other/overlay_lib.tres" id="4_c4i6b"]
 [ext_resource type="PackedScene" uid="uid://ogv732b1atc0" path="res://Main/camera_rig/camera_rig.tscn" id="5_uhy27"]
@@ -18,10 +18,10 @@ agent_radius = 2.0
 resource_local_to_scene = true
 
 [node name="level" type="Node"]
-script = ExtResource("1_b5j3n")
+script = ExtResource("2_2xpti")
 
 [node name="level_manager" type="Node" parent="."]
-script = ExtResource("2_2xpti")
+script = ExtResource("2_fjqhi")
 
 [node name="tile_map" type="GridMap" parent="." groups=["navigation_object"]]
 mesh_library = ExtResource("3_jhtmx")
@@ -61,5 +61,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 0, -9)
 
 [node name="core" parent="." instance=ExtResource("7_gh3kn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 0)
+
+[node name="lights" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 21, -27)
+shadow_enabled = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="lights"]
+transform = Transform3D(-0.212012, -0.573576, 0.79124, -0.148453, 0.819152, 0.554032, -0.965926, -5.67582e-07, -0.258819, 29, 21, 25)
+shadow_enabled = true
 
 [editable path="path_spawner"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq64sqvifc0t8"]
+
+[ext_resource type="PackedScene" uid="uid://463piyifvnco" path="res://Levels/base_level.tscn" id="1_ubeqk"]
+
+[sub_resource type="Curve3D" id="Curve3D_v73h0"]
+resource_local_to_scene = true
+
+[node name="level" instance=ExtResource("1_ubeqk")]
+id = "test_level"
+display_name = "Test Level"
+description = "Used to test profiles"
+button_position = Vector2(50, 50)
+icon = "res://UI/icons/debug_icon.png"
+money = 1000
+
+[node name="path" parent="path_spawner" index="2"]
+curve = SubResource("Curve3D_v73h0")
+
+[editable path="path_spawner"]

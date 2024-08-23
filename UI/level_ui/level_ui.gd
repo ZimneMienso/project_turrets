@@ -20,19 +20,19 @@ func _ready():
 #	money = number_to_display
 
 var buttons:Array[Node]=[]
-func update_build_buttons(data):
+func update_build_buttons(ids:PackedStringArray):
 	#clear previously made buttons
 	for i in buttons:
 		i.queue_free()
-		buttons.erase(i)
+	buttons.clear()
 	#instantiate buttons from data, order and add to "buttons" array
-	for i in data.size():
-		var buildable = data[i]
-		var new_button: = build_button_scene.instantiate()
+	for i in ids.size():
+		var id:String = ids[i]
+		var new_button = build_button_scene.instantiate()
 		buildable_button_container.add_child(new_button)
-		new_button.initialize(buildable)
+		new_button.initialize(id)
 		new_button.buildable_button_pressed.connect(_on_buildable_button_pressed)
-		$build_menu/buildable_button_container.move_child($build_menu/buildable_button_container/deconstruct_button,-1)
+		buildable_button_container.move_child($build_menu/buildable_button_container/deconstruct_button,-1)
 		buttons.append(new_button)
 
 var build_mode_selection

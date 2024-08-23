@@ -3,21 +3,16 @@
 [ext_resource type="Script" path="res://Main/main.gd" id="1_akbct"]
 [ext_resource type="Script" path="res://UI/level_ui/temp_data.gd" id="2_7vo0a"]
 
-[node name="Root" type="Node"]
-
-[node name="Main" type="Node" parent="."]
+[node name="main" type="Node"]
 script = ExtResource("1_akbct")
+fresh_global_profile = {
+"current_profile": 1
+}
+fresh_profile = {
+"unlocked_levels": PackedStringArray("test_level"),
+"unlocked_turrets": PackedStringArray()
+}
 metadata/_edit_vertical_guides_ = [-30.0]
 
-[node name="temp_data" type="Node" parent="Main"]
+[node name="temp_data" type="Node" parent="."]
 script = ExtResource("2_7vo0a")
-
-[node name="Lights" type="Node" parent="."]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 21, -27)
-shadow_enabled = true
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Lights"]
-transform = Transform3D(-0.212012, -0.573576, 0.79124, -0.148453, 0.819152, 0.554032, -0.965926, -5.67582e-07, -0.258819, 29, 21, 25)
-shadow_enabled = true
