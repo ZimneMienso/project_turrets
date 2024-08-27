@@ -19,8 +19,8 @@ var ui:Node:
 func _on_deconstruction_at_cursor_request() -> void:
 	level_manager._on_deconstruction_at_cursor_request()
 
-func _on_build_at_cursor_request(object_data: Buildable_Data) -> void:
-	level_manager._on_build_at_cursor_request(object_data)
+func _on_build_at_cursor_request(buildable_id: String) -> void:
+	level_manager._on_build_at_cursor_request(buildable_id)
 
 func get_money():
 	return money

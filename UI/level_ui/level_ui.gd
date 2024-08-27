@@ -1,5 +1,5 @@
 extends CanvasLayer
-signal request_build_at_cursor(object_data: Buildable_Data)
+signal request_build_at_cursor(id:String)
 signal request_deconstruction_at_cursor
 
 @export var build_button_scene: PackedScene
@@ -10,10 +10,10 @@ signal request_deconstruction_at_cursor
 var level: Node
 
 var money_label:Label
-var unlock_data:Unlock_Data
+var unlocked_buildables:PackedStringArray
 
 func _ready():
-	update_build_buttons(unlock_data.unlocked_turrets)
+	update_build_buttons(unlocked_buildables)
 	money_label = $money_display/HBoxContainer/money_label
 
 #func update_money(number_to_display):
@@ -36,8 +36,8 @@ func update_build_buttons(ids:PackedStringArray):
 		buttons.append(new_button)
 
 var build_mode_selection
-func _on_buildable_button_pressed(data: Buildable_Data):
-	build_mode_selection = data
+func _on_buildable_button_pressed(id:String):
+	build_mode_selection = id
 
 func _on_decon_button_pressed():
 	build_mode_selection = "deconstruct"
@@ -45,14 +45,16 @@ func _on_decon_button_pressed():
 func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("mouse_primary"):
-	#build selected (if it's a buildable)
-		if build_mode_selection is Buildable_Data:
-			emit_signal("request_build_at_cursor", build_mode_selection)
-	#deconstruction
-		if build_mode_selection is String and build_mode_selection == "deconstruct":
-			emit_signal("request_deconstruction_at_cursor")
+	#managing construction
+		if build_mode_selection:
+			#deconstruction
+			if build_mode_selection == "deconstruct":
+				emit_signal("request_deconstruction_at_cursor")
+			#build selected (if it's a buildable)
+			else:
+				emit_signal("request_build_at_cursor", build_mode_selection)
 	#clearing selection
-	if event.is_action_pressed("mouse_secondary") and build_mode_selection:
+	if event.is_action_pressed("mouse_secondary"):
 		build_mode_selection = null
 
 func update_money() -> void:

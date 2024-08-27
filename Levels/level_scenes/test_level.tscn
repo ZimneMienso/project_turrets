@@ -9,7 +9,7 @@ resource_local_to_scene = true
 id = "test_level"
 display_name = "Test Level"
 description = "Used to test profiles"
-button_position = Vector2(50, 50)
+button_position = Vector2(200, -100)
 icon = "res://UI/icons/debug_icon.png"
 money = 1000
 

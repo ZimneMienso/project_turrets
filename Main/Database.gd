@@ -1,8 +1,8 @@
 extends Node
 
 #the directories to scan
-const turret_dir = "res://Turrets/turrets"
-const level_dir = "res://Levels/level_tscns"
+const turret_dir = "res://Turrets/turret_scenes"
+const level_dir = "res://Levels/level_scenes"
 
 #the property names to extract
 const level_data:PackedStringArray = [
@@ -12,12 +12,17 @@ const level_data:PackedStringArray = [
 	"button_position",
 	"icon"
 ]
-const turret_data:PackedStringArray = [
-	
+const buildable_data:PackedStringArray = [
+	"id",
+	"display_name",
+	"description",
+	"icon",
+	"price",
+	"type"
 ]
 
 var level_database:Array[Dictionary]
-var turret_database:Array[Dictionary]
+var buildable_database:Array[Dictionary]
 
 var current_profile_data:Dictionary
 
@@ -49,18 +54,28 @@ func scan(directory:String, extract:PackedStringArray)->Array[Dictionary] :
 
 func _ready():
 	level_database = scan(level_dir, level_data)
+	buildable_database.append_array(scan(turret_dir, buildable_data))
 
 func get_database_entry(id:String, category:String)->Dictionary:
 	var database:Array[Dictionary]
-	if category == "turret":
-		database = turret_database
+	if category == "buildable":
+		database = buildable_database
 	if category == "level":
 		database = level_database
 	if database == null:
 		print("Error at database.gd, get_database_entry(), invalid category '%s', available categories: turret, level" % category)
 		return {}
+	if database.size() == 0:
+		print("Warning. Database of category %s empty (database.gd, get_database_entry())" % category)
 	for entry in database.size():
 		if database[entry]["id"] == id:
 			return database[entry]
 	print("Error at database.gd, get_database_entry(), could not find entry with id '%s' id category '%s'"% [id, category])
 	return {}
+	
+func get_database_property(id:String, category:String, property:String):
+	var dic:Dictionary = get_database_entry(id,category)
+	if !dic.has(property):
+		print("Error. No key '%s' in '%s', category '%s' (database.gd, get_database_property())"%[property,id,category])
+	return dic[property]
+	

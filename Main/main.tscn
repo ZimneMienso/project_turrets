@@ -1,18 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://246faii746cf"]
+[gd_scene load_steps=2 format=3 uid="uid://246faii746cf"]
 
 [ext_resource type="Script" path="res://Main/main.gd" id="1_akbct"]
-[ext_resource type="Script" path="res://UI/level_ui/temp_data.gd" id="2_7vo0a"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_akbct")
-fresh_global_profile = {
+fresh_global_profile_template = {
 "current_profile": 1
 }
-fresh_profile = {
-"unlocked_levels": PackedStringArray("test_level"),
-"unlocked_turrets": PackedStringArray()
+fresh_profile_template = {
+"unlocked_buildables": PackedStringArray(),
+"unlocked_levels": PackedStringArray()
 }
 metadata/_edit_vertical_guides_ = [-30.0]
-
-[node name="temp_data" type="Node" parent="."]
-script = ExtResource("2_7vo0a")

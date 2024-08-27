@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://boogpxiya3ohe"]
+
+[ext_resource type="Script" path="res://Turrets/base_turret.gd" id="1_j0t5m"]
+
+[node name="base_turret" type="Node3D"]
+script = ExtResource("1_j0t5m")
+
+[node name="reload_timer" type="Timer" parent="."]
+
+[node name="detection" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="detection"]
+
+[connection signal="body_entered" from="detection" to="." method="update_targets"]
+[connection signal="body_exited" from="detection" to="." method="update_targets"]

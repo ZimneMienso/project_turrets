@@ -1,5 +1,6 @@
 extends Node
 
+@onready var level = $".."
 @onready var camera = $"../camera_rig/Camera3D"
 @onready var tile_map = $"../tile_map"
 @onready var overlay = $"../overlay"
@@ -12,7 +13,9 @@ extends Node
 var ui:Node
 
 var tile_data_dic: Dictionary = {}
-var money: int = 1000
+var money: int: 
+	set(new_value): level.money = new_value
+	get: return level.money
 var level_map:RID
 
 func _ready():
@@ -45,14 +48,14 @@ func get_tile_under_cursor():
 	if ray_intesect:
 		return tile_map.local_to_map(ray_intesect.position)
 
-func _on_build_at_cursor_request(object_data: Buildable_Data) -> void:
+func _on_build_at_cursor_request(id:String) -> void:
 	#Check if there's a tile under cursor
 	var tile = get_tile_under_cursor()
 	if tile == null:
 		print("Invalid placement")
 		return
 	#Check if building can be afforded
-	var price = object_data.price
+	var price = Database.get_database_property(id,"buildable","price")
 	if price > money:
 		print("Not enough stonks")
 		return
@@ -65,15 +68,14 @@ func _on_build_at_cursor_request(object_data: Buildable_Data) -> void:
 	money -= price
 	ui.update_money()
 	#Actually build the thing
-	var building = load(object_data.path).instantiate()
+	var building = load(Database.get_database_property(id,"buildable","path")).instantiate()
 	building.position = tile_map.map_to_local(tile)
-	print(building.position)
 	add_child(building)
 	#Add/update cell data
 	var new_tile_data: Tile_Data = Tile_Data.new()
 	new_tile_data.coordinates = tile
 	new_tile_data.occupation = building
-	new_tile_data.deconstruction_value = object_data.price
+	new_tile_data.deconstruction_value = price
 	tile_data_dic[tile] = new_tile_data
 
 func _on_deconstruction_at_cursor_request() -> void:
