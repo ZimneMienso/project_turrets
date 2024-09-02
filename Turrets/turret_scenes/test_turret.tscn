@@ -1,13 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://cffqvsjdn1xdd"]
+[gd_scene load_steps=8 format=3 uid="uid://cffqvsjdn1xdd"]
 
 [ext_resource type="PackedScene" uid="uid://boogpxiya3ohe" path="res://Turrets/base_turret.tscn" id="1_ws428"]
+[ext_resource type="Script" path="res://Turrets/turret_scenes/test_turret.gd" id="2_qw3xn"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6jxl0"]
 radius = 5.155
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_dib03"]
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dqqio"]
+radius = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8w3fy"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fx6rh"]
+top_radius = 0.06
+bottom_radius = 0.225
+
 [node name="base_turret" instance=ExtResource("1_ws428")]
+script = ExtResource("2_qw3xn")
 id = "test_turret"
 display_name = "Test Turret"
 description = "Turret for testing"
@@ -20,3 +32,14 @@ shape = SubResource("SphereShape3D_6jxl0")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CylinderMesh_dib03")
+
+[node name="debug" type="MeshInstance3D" parent="." index="4"]
+mesh = SubResource("CapsuleMesh_dqqio")
+surface_material_override/0 = SubResource("StandardMaterial3D_8w3fy")
+
+[node name="pivot" type="Node3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pivot" index="0"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1, 0, 0)
+mesh = SubResource("CylinderMesh_fx6rh")
