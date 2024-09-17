@@ -20,6 +20,9 @@ var target: Node3D
 func _ready():
 	if target_path:
 		target = get_node(target_path)
+
+func receive_damage(damage):
+	return
 	
 func _process(delta):
 	if target:

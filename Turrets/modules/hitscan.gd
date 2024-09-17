@@ -1,8 +1,9 @@
 extends RefCounted
+class_name Module_Hitscan
 
 static func project_raycast(
 from:Vector3, to:Vector3, exclude:Array[RID],
-lenght:float, space_state:PhysicsDirectBodyState3D, collision_mask:int=0b111,
+space_state:PhysicsDirectSpaceState3D, collision_mask:int=0b111,
 target_group:String = "units"
 ):
 	var querry = PhysicsRayQueryParameters3D.create(from,to,collision_mask,exclude)

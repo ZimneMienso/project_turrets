@@ -4,8 +4,11 @@
 
 [node name="base_turret" type="Node3D"]
 script = ExtResource("1_j0t5m")
+horizontal_rotation_speed = 0.5
+vertical_rotation_speed = 0.5
 
 [node name="reload_timer" type="Timer" parent="."]
+process_callback = 0
 
 [node name="detection" type="Area3D" parent="."]
 collision_layer = 0
@@ -14,8 +17,11 @@ monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="detection"]
 
-[node name="muzzle" type="Marker3D" parent="."]
+[node name="x_pivot" type="Node3D" parent="."]
+
+[node name="muzzle" type="Marker3D" parent="x_pivot"]
 unique_name_in_owner = true
 
-[connection signal="body_entered" from="detection" to="." method="update_targets"]
-[connection signal="body_exited" from="detection" to="." method="update_targets"]
+[connection signal="timeout" from="reload_timer" to="." method="reload"]
+[connection signal="body_entered" from="detection" to="." method="target_entered"]
+[connection signal="body_exited" from="detection" to="." method="target_exited"]

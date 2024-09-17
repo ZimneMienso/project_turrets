@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://pa02vc14fe2g"]
 
-[ext_resource type="Script" path="res://test_char.gd" id="1_s6ft5"]
+[ext_resource type="Script" path="res://Units/test_char/test_char.gd" id="1_s6ft5"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_3xdxr"]
 
@@ -9,8 +9,9 @@ size = Vector3(0.3, 0.49, 0.3)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_xgoly"]
 
-[node name="test_char" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+[node name="test_char" type="CharacterBody3D" groups=["units"]]
+collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_s6ft5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
