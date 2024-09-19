@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" path="res://Turrets/hitscan_turret/HitscanTurret.gd" id="1_ke0qs"]
 [ext_resource type="PackedScene" uid="uid://h7emdjiv204w" path="res://Other/placeholder_explosion/placeholder_explosion.tscn" id="2_4q0ss"]
-[ext_resource type="Texture2D" uid="uid://db7886yoejfrr" path="res://Turrets/hitscan_turret/debug_icon.png" id="2_sr4gd"]
+
+[sub_resource type="Resource" id="Resource_ukh2u"]
+metadata/__load_path__ = "res://Turrets/hitscan_turret/debug_icon.png"
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_0p5ub"]
 
@@ -33,7 +35,7 @@ height = 4.97
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_ke0qs")
-icon = ExtResource("2_sr4gd")
+icon = SubResource("Resource_ukh2u")
 hit_effect_scene = ExtResource("2_4q0ss")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
