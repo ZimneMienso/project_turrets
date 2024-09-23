@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://boogpxiya3ohe"]
 
-[ext_resource type="Script" path="res://Turrets/base_turret.gd" id="1_j0t5m"]
+[ext_resource type="Script" path="res://Turrets/base_turret/base_turret.gd" id="1_j0t5m"]
 
 [node name="base_turret" type="Node3D"]
 script = ExtResource("1_j0t5m")
@@ -21,6 +21,7 @@ monitorable = false
 
 [node name="muzzle" type="Marker3D" parent="x_pivot"]
 unique_name_in_owner = true
+editor_description = "The point from which projectiles, hitscans, animations, particles etc will originate."
 
 [connection signal="timeout" from="reload_timer" to="." method="reload"]
 [connection signal="body_entered" from="detection" to="." method="target_entered"]

@@ -27,6 +27,31 @@ project/assembly_name="Turrets"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[file_customization]
+
+folder_colors={
+"res://Buildings/Core/": "purple",
+"res://Buildings/Spawner/": "purple",
+"res://Buildings/path_spawner/": "purple",
+"res://Custom_classes/": "blue",
+"res://Levels/level_scenes/": "orange",
+"res://Levels/tile_libraries/": "yellow",
+"res://Main/camera_rig/": "orange",
+"res://Turrets/155mm/": "purple",
+"res://Turrets/base_turret/": "pink",
+"res://Turrets/hitscan_turret/": "purple",
+"res://Turrets/modules/": "blue",
+"res://Turrets/turret_scenes/": "orange",
+"res://UI/icons/": "yellow",
+"res://UI/level_ui/": "orange",
+"res://UI/main_menu/": "orange",
+"res://Units/dumb_dummy/": "purple",
+"res://Units/path_dummy/": "purple",
+"res://Units/smart_dummy/": "purple",
+"res://Units/test_char/": "purple",
+"res://addons/": "red"
+}
+
 [filesystem]
 
 import/fbx/enabled=false

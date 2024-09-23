@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Levels/level.gd" id="2_2xpti"]
 [ext_resource type="Script" path="res://Levels/level_manager.gd" id="2_fjqhi"]
-[ext_resource type="MeshLibrary" uid="uid://b1i0vouf7b0d6" path="res://Other/tile_lib.tres" id="3_jhtmx"]
-[ext_resource type="MeshLibrary" uid="uid://bcsn41o1dli0v" path="res://Other/overlay_lib.tres" id="4_c4i6b"]
+[ext_resource type="MeshLibrary" uid="uid://b1i0vouf7b0d6" path="res://Levels/tile_libraries/tile_lib.tres" id="3_jhtmx"]
+[ext_resource type="MeshLibrary" uid="uid://bcsn41o1dli0v" path="res://Levels/tile_libraries/overlay_lib.tres" id="4_c4i6b"]
 [ext_resource type="PackedScene" uid="uid://ogv732b1atc0" path="res://Main/camera_rig/camera_rig.tscn" id="5_uhy27"]
 [ext_resource type="PackedScene" uid="uid://crw1g10ecu8oa" path="res://Buildings/path_spawner/path_spawner.tscn" id="6_5aahs"]
 [ext_resource type="PackedScene" uid="uid://bx8mvklm8p54u" path="res://Buildings/Core/core.tscn" id="7_gh3kn"]
