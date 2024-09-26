@@ -12,15 +12,16 @@ func shoot():
 		[self], get_world_3d().direct_space_state
 	)
 	if hit_unit:
-		if hit_unit.has_method("receive_damage"):
-			super()
-			hit_unit.receive_damage(damage)
-			var distance_to_target = x_pivot.global_position.distance_to(target.global_position)
-			var particle_speed = 600
-			emiter.lifetime = distance_to_target/particle_speed
-			emiter.emit_particle(
-				muzzle.global_transform, Vector3.FORWARD * particle_speed,
-				Color.WHITE, Color.WHITE, 4
-			)
-		else:
+		if not hit_unit.has_method("receive_damage"):
 			printerr("Unit has no receive_damage() method (test_turret.gd)")
+			return
+		super()
+		hit_unit.receive_damage(damage)
+		var distance_to_target = x_pivot.global_position.distance_to(target.global_position)
+		var particle_speed = 600
+		emiter.lifetime = distance_to_target/particle_speed
+		emiter.emit_particle(
+			muzzle.global_transform, Vector3.FORWARD * particle_speed,
+			Color.WHITE, Color.WHITE, 4
+		)
+

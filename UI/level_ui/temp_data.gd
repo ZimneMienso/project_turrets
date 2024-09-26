@@ -9,7 +9,7 @@ var unlock_data
 
 func _ready():
 	buildables_data = create_buildables_data(buildables)
-	#temporary as fuck, do it better as soon as player profiles are implemented
+	# temporary as fuck, do it better as soon as player profiles are implemented
 	unlock_data = Unlock_Data.new()
 	unlock_data.unlocked_turrets = buildables_data
 # Creates an array of Buildable_Data objects out of given 
@@ -25,4 +25,3 @@ func create_buildables_data(current_buildables: Array[String]):
 		data.price = buildable.price
 		result.append(data)
 	return result
-

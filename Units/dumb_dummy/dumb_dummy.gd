@@ -15,7 +15,7 @@ func initialize(target: Node3D):
 
 func _physics_process(_delta):
 	
-	#Core Collision
+	# Core Collision
 	for index in range(get_slide_collision_count()):
 		var collision = get_slide_collision(index)
 		var collider = collision.get_collider()

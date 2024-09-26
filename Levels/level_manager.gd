@@ -9,7 +9,7 @@ extends Node
 
 @export_range(0.1,1) var agent_radius_factor: float = 0.8
 
-#set by Main using setter function at level
+# set by Main using setter function at level
 var ui:Node
 
 var tile_data_dic: Dictionary = {}
@@ -27,7 +27,7 @@ func _ready():
 var prev_cell
 func _physics_process(_delta):
 	var tile_coords = get_tile_under_cursor()
-	#highlighting cells
+	# highlighting cells
 	if prev_cell and prev_cell != tile_coords:
 		overlay.set_cell_item(prev_cell,-1)
 		prev_cell = null
@@ -49,29 +49,29 @@ func get_tile_under_cursor():
 		return tile_map.local_to_map(ray_intesect.position)
 
 func _on_build_at_cursor_request(id:String) -> void:
-	#Check if there's a tile under cursor
+	# Check if there's a tile under cursor
 	var tile = get_tile_under_cursor()
 	if tile == null:
 		print("Invalid placement")
 		return
-	#Check if building can be afforded
+	# Check if building can be afforded
 	var price = Database.get_database_property(id,"buildable","price")
 	if price > money:
 		print("Not enough stonks")
 		return
-	#Check if tile is occupied
+	# Check if tile is occupied
 	if tile_data_dic.has(tile):
 		if tile_data_dic[tile].occupation:
 			print("Cell occupied")
 			return
-	#Manage money
+	# Manage money
 	money -= price
 	ui.update_money()
-	#Actually build the thing
+	# Actually build the thing
 	var building = load(Database.get_database_property(id,"buildable","path")).instantiate()
 	building.position = tile_map.map_to_local(tile)
 	add_child(building)
-	#Add/update cell data
+	# Add/update cell data
 	var new_tile_data: Tile_Data = Tile_Data.new()
 	new_tile_data.coordinates = tile
 	new_tile_data.occupation = building
@@ -79,14 +79,14 @@ func _on_build_at_cursor_request(id:String) -> void:
 	tile_data_dic[tile] = new_tile_data
 
 func _on_deconstruction_at_cursor_request() -> void:
-	#check if there's anthting there
+	# check if there's anthting there
 	var tile = get_tile_under_cursor()
-	if !tile_data_dic.has(tile):
+	if not tile_data_dic.has(tile):
 		print("Nothing to deconstruct")
 		return
 	var tile_data: Tile_Data = tile_data_dic[tile]
-	#check if it can be deconstructed
-	if !tile_data.deconstruction_value:
+	# check if it can be deconstructed
+	if not tile_data.deconstruction_value:
 		print("Can't be deconstructed")
 		return
 	tile_data.occupation.queue_free()
@@ -105,8 +105,8 @@ func nav_server_setup() -> void:
 	nav_region.bake_navigation_mesh()
 	await get_tree().physics_frame
 
-#Takes a Path3D and assign the path from -> to as its curve
-func create_path(startpoint:Vector3, endpoint:Vector3, map:RID, path:Path3D, optimize:bool=true, curveture_factor:float=0.1) -> void:
+# Takes a Path3D and assign the path from -> to as its curve
+func create_path(startpoint:Vector3, endpoint:Vector3, map:RID, path:Path3D, optimize:bool = true, curveture_factor:float = 0.1) -> void:
 	var path_points:PackedVector3Array
 	while path_points.size() == 0:
 		path_points = NavigationServer3D.map_get_path(map, startpoint, endpoint, optimize)

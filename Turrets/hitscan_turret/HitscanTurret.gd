@@ -7,7 +7,7 @@ extends StaticBody3D
 @export var fire_rate: float = 3
 @export var hit_effect_scene: PackedScene
 
-var fire_perioid: float
+var fire_period: float
 var can_shoot_checklist: Dictionary
 var can_shoot_checkmarks: Array
 
@@ -20,7 +20,7 @@ func _ready():
 	can_shoot_checkmarks = can_shoot_checklist.values()
 	for index in can_shoot_checkmarks.size():
 		can_shoot_checkmarks[index] = true
-	fire_perioid = 1.0/fire_rate
+	fire_period = 1.0/fire_rate
 	
 func _process(_delta):
 	if targets.is_empty() == false:
@@ -67,7 +67,7 @@ func _physics_process(_delta):
 				#practical effects
 				hit_object.receive_damage(1)
 				can_shoot_checklist["fire_rate"] = false
-				$fire_rate_timer.start(fire_perioid)
+				$fire_rate_timer.start(fire_period)
 				#visual effects
 				var hit_effect = hit_effect_scene.instantiate()
 				hit_effect.initialize(0.3, 1)

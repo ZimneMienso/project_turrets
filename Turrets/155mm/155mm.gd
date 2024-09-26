@@ -11,7 +11,7 @@ extends Node3D
 @onready var azimuth_pivot = $Base/Body
 @onready var elevation_pivot = $Base/Body/Elevation
 
-var fire_perioid = 1.0/fire_rate
+var fire_period = 1.0/fire_rate
 var can_shoot_checklist = {
 	"fire_rate" = true,
 	"reload" = true,
@@ -57,34 +57,34 @@ func aim_x(target_pos: Vector3,pivot: Node3D, lerp_weight: float, delta):
 func _physics_process(delta):
 	
 	if targets.is_empty() == false:
-		#Looking at enemy
+		# Looking at enemy
 		var target_pos = targets[0].global_position
 		aim_y(target_pos, azimuth_pivot, 5, delta)
 		aim_x(target_pos, elevation_pivot, 5, delta)
 		$piston_anim.seek((rad_to_deg(elevation_pivot.rotation.x) + 10) * 4 / 60, true)
 		
 	if can_shoot():
-		#Hitscan endpoint
+		# Hitscan endpoint
 		var barrel_vector = elevation_pivot.global_position.direction_to($Base/Body/Elevation/Muzzle.global_position)
 
-		#todo variable range
+		# todo variable range
 		var hitscan_endpoint = elevation_pivot.global_position + barrel_vector * 35
 		
-		#Hitscan raycast
+		# Hitscan raycast
 		var space_state = get_world_3d().direct_space_state
 		var querry = PhysicsRayQueryParameters3D.create(elevation_pivot.global_position, hitscan_endpoint)
 		querry.exclude = [self]
 		querry.collision_mask = 0b111
 		var hitscan_intersect = space_state.intersect_ray(querry)
 		
-		#Shooting
+		# Shooting
 		if hitscan_intersect.has("collider"):
 			var hit_object: Object = hitscan_intersect["collider"]
 			if hit_object.is_in_group("team1") == false and hit_object.is_in_group("units"):
 				#practical effects
 				hit_object.receive_damage(damage)
 				can_shoot_checklist["fire_rate"] = false
-				$fire_rate_timer.start(fire_perioid)
+				$fire_rate_timer.start(fire_period)
 				#audiovisual effects
 				var hit_effect = hit_effect_scene.instantiate()
 				hit_effect.initialize(0.3, 4)

@@ -3,60 +3,60 @@ class_name Base_Turret
 
 #region Exported Properties
 @export_category("Turret Data")
-##Internal unique identifier
+## Internal unique identifier
 @export var id:String
-##Name on buttons etc
+## Name on buttons etc
 @export var display_name:String
-##Tooltip/encyclopedia text
+## Tooltip/encyclopedia text
 @export var description:String
-##Icon on button
+## Icon on button
 @export_file var icon:String
 @export_subgroup("Turret In-Game Properties")
-##Amount of money deduced when placing this
+## Amount of money deduced when placing this
 @export_range(0,5000,1,"or_greater") var price:int
-##Maximum shots/second
+## Maximum shots/second
 @export_range(0,10,0.001,"or_greater") var fire_rate:float
-##Damage per shot
+## Damage per shot
 @export_range(0,10000,0.1,"or_greater") var damage:float
-##Factor by which a "normalized" range shape will be multiplied
+## Factor by which a "normalized" range shape will be multiplied
 @export_range(0,1000,0.1,"or_greater") var turret_range:float
-##The max number of shots before reload
+## The max number of shots before reload
 @export_range(0,1000,1,"or_greater") var loader_capacity:int
-##Time in seconds that a reload takes
+## Time in seconds that a reload takes
 @export_range(0,50,1,"or_greater") var reload_time:float
-##Max rotation speed in radians in y axis, multiplied by rampup
+## Max rotation speed in radians in y axis, multiplied by rampup
 @export_range(0,100,0.01,"or_greater") var horizontal_rotation_speed:float
-##Max rotation speed in radians in x axis, multiplied by rampup
+## Max rotation speed in radians in x axis, multiplied by rampup
 @export_range(0,100,0.01,"or_greater") var vertical_rotation_speed:float
-##Time in seconds the turret rotates before achieving max rotation speed
+## Time in seconds the turret rotates before achieving max rotation speed
 @export_range(0,10,0.01,"or_greater") var rampup_time:float
 @export_subgroup("Configuration")
 @export var y_pivot:Node3D
 @export var x_pivot:Node3D
 #@export_node_path("Node3D") var y_pivot
 #@export_node_path("Node3D") var z_pivot
-##Maximum difference between the current barrel rotation and target vector
+## Maximum difference between the current barrel rotation and target vector
 @export var required_accuracy:float = deg_to_rad(1)
-#endregion Exported Properties
+# endregion Exported Properties
 
 #region Internal Properties
-##Category for sorting of ui buttons etc
+## Category for sorting of ui buttons etc
 const type:String = "turret"
-##Represents the end of the barrel
+## Represents the end of the barrel
 @onready var muzzle:Node3D = %muzzle
-##Currently loaded ammunition
+## Currently loaded ammunition
 var ammunition:int
-##All compatible (collision mask "units") physics bodies in range 
+## All compatible (collision mask "units") physics bodies in range 
 var targets:Array[Node3D]
-##Current target
+## Current target
 var target:Node3D
-##Reload timer is at 0s (= has ammo and hasn't shot in =< than fire perioid)
+## Reload timer is at 0s (= has ammo and hasn't shot in =< than fire period)
 var salvo_ready:bool = true
-##Is the brrel rotated within the margin of required_accuracy
+## Is the brrel rotated within the margin of required_accuracy
 var within_req_acc:bool = false
-##Reverse fire rate
-var fire_perioid:float
-##Current rotation rampup
+## Reverse fire rate
+var fire_period:float
+## Current rotation rampup
 var rampup:float:
 	set(new_value):
 		rampup = clamp(new_value,0,1.1)
@@ -64,7 +64,7 @@ var rampup:float:
 
 #region Main Body
 func _ready():
-	fire_perioid = 1/fire_rate
+	fire_period = 1/fire_rate
 	ammunition = loader_capacity
 
 func _physics_process(delta):
@@ -78,12 +78,12 @@ func start_reload(wait_time:float):
 func shoot():
 		salvo_ready = false
 		ammunition -= 1
-		if ammunition: start_reload(fire_perioid)
+		if ammunition: start_reload(fire_period)
 		else: start_reload(reload_time)
 
-#Note: shit's janky af, but it works for now
-#probably needs to be converted to vector or transform interpolation
-##Also returns if rotated within required margin
+# Note: shit's janky af, but it works for now
+# probably needs to be converted to vector or transform interpolation
+## Also returns if rotated within required margin
 func rotate_to_target(target_position:Vector3) -> bool:
 	var relative = target_position - x_pivot.global_position
 
@@ -100,21 +100,21 @@ func rotate_to_target(target_position:Vector3) -> bool:
 		y_pivot.rotation.y - to_target_horizontal) < required_accuracy and abs(
 		x_pivot.rotation.x - to_target_vertical) < required_accuracy
 
-##Tries to get a new target if there in not or the previous one moved out of range
-##Returns true if at the end there is a target or false if not
+## Tries to get a new target if there in not or the previous one moved out of range
+## Returns true if at the end there is a target or false if not
 func perform_targeting() -> bool:
-	##If no target or target out of range
-	if !target or !targets.has(target):
-		##Remove target
+	## If no target or target out of range
+	if not target or not targets.has(target):
+		## Remove target
 		target = null
-		##Decrease rampup
+		## Decrease rampup
 		rampup -= 1/rampup_time/Engine.physics_ticks_per_second
-		##Get new target if there are any in range
+		## Get new target if there are any in range
 		if targets:
 			target = Module_Target_Selection.random(targets)
-		##If no targets in range, return false
+		## If no targets in range, return false
 		else: return false
-	##If there is a target and it is in range, return true
+	## If there is a target and it is in range, return true
 	return true
 
 #func get_aimpoint():
@@ -128,7 +128,7 @@ func perform_targeting() -> bool:
 #endregion Main Body
 
 #region Helper functions
-##Returns the forward direction of the muzzle, multiplied by lenght
+## Returns the forward direction of the muzzle, multiplied by lenght
 func get_barrel_vector(lenght:float)->Vector3:
 	return to_global(-muzzle.get_global_transform().basis.z * lenght + x_pivot.position)
 
@@ -138,14 +138,14 @@ max_change_per_frame:float,current_rampup:float
 )->float:
 	var rampup_corrected = max_change_per_frame * current_rampup
 	return clamp(target_value,current_value-rampup_corrected,current_value+rampup_corrected)
-#endregion Helper functions
+# endregion Helper functions
 
 #region Signal responses
-##This is the thing the ending of reloading process, not the beginning
-##Do not call this directly, use start_reload(), or face the consequences
+## This is the thing the ending of reloading process, not the beginning
+## Do not call this directly, use start_reload(), or face the consequences
 func reload():
 	salvo_ready = true
-	if !ammunition: ammunition = loader_capacity 
+	if not ammunition: ammunition = loader_capacity 
 
 func target_entered(body):
 	targets.append(body)

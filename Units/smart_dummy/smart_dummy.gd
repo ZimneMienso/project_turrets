@@ -16,13 +16,13 @@ func _ready():
 	nav_agent.max_speed = speed
 
 func _physics_process(_delta):
-	if !nav_agent.is_navigation_finished():
+	if not nav_agent.is_navigation_finished():
 		var target_pos = nav_agent.get_next_path_position()
 		var direction = global_transform.origin.direction_to(target_pos)
 		velocity = direction * nav_agent.max_speed
 		look_at(target_pos)
 		rotate(Vector3.UP,deg_to_rad(90))
-	#Core Collision
+	# Core Collision
 	for index in range(get_slide_collision_count()):
 		var collision = get_slide_collision(index)
 		var collider = collision.get_collider()

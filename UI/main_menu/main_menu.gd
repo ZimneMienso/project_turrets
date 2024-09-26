@@ -12,7 +12,7 @@ func _ready():
 	var unlocked_levels:PackedStringArray = Database.current_profile_data["unlocked_levels"]
 	update_level_buttons(unlocked_levels)
 
-func change_menu(new_selection:Node,hide_rest:bool=true):
+func change_menu(new_selection:Node,hide_rest:bool = true):
 	if hide_rest: for object in get_children(): object.hide()
 	new_selection.show()
 
@@ -27,11 +27,11 @@ func _on_level_select_button_pressed(level_id:String):
 
 var buttons:Array[Node] = []
 func update_level_buttons(level_ids:PackedStringArray):
-	#clear previously made buttons
+	# clear previously made buttons
 	for i in buttons:
 		i.queue_free()
 		buttons.erase(i)
-	#instantiate buttons from data, order and add to "buttons" array
+	# instantiate buttons from data, order and add to "buttons" array
 	for i in level_ids.size():
 		var level_data:Dictionary = Database.get_database_entry(level_ids[i],"level")
 		var new_button: = level_button_scene.instantiate()
