@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cffqvsjdn1xdd"]
 
-[ext_resource type="PackedScene" uid="uid://boogpxiya3ohe" path="res://Turrets/base_turret.tscn" id="1_ws428"]
+[ext_resource type="PackedScene" uid="uid://boogpxiya3ohe" path="res://Turrets/base_turret/base_turret.tscn" id="1_ws428"]
 [ext_resource type="Script" path="res://Turrets/turret_scenes/test_turret.gd" id="2_qw3xn"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6jxl0"]
@@ -78,7 +78,7 @@ amount = 60
 collision_base_size = 0.2
 transform_align = 3
 trail_enabled = true
-trail_lifetime = 0.13
+trail_lifetime = 0.05
 process_material = SubResource("ParticleProcessMaterial_6ny51")
 draw_pass_1 = SubResource("RibbonTrailMesh_05g8v")
 

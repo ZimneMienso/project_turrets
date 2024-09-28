@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://246faii746cf"]
+[gd_scene load_steps=2 format=3 uid="uid://246faii746cf"]
 
 [ext_resource type="Script" path="res://Main/main.gd" id="1_akbct"]
-[ext_resource type="PackedScene" uid="uid://pa02vc14fe2g" path="res://Units/test_char/test_char.tscn" id="2_gk4li"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_akbct")
@@ -13,5 +12,3 @@ fresh_profile_template = {
 "unlocked_levels": PackedStringArray()
 }
 metadata/_edit_vertical_guides_ = [-30.0]
-
-[node name="test_char" parent="." instance=ExtResource("2_gk4li")]
