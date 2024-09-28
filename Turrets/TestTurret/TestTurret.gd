@@ -1,4 +1,4 @@
-extends Base_Turret
+extends BaseTurret
 
 @onready var emiter:GPUParticles3D = $x_pivot/muzzle/GPUParticles3D
 
@@ -24,4 +24,3 @@ func shoot():
 			muzzle.global_transform, Vector3.FORWARD * particle_speed,
 			Color.WHITE, Color.WHITE, 4
 		)
-

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cffqvsjdn1xdd"]
 
-[ext_resource type="PackedScene" uid="uid://boogpxiya3ohe" path="res://Turrets/base_turret/base_turret.tscn" id="1_ws428"]
-[ext_resource type="Script" path="res://Turrets/turret_scenes/test_turret.gd" id="2_qw3xn"]
+[ext_resource type="PackedScene" uid="uid://boogpxiya3ohe" path="res://Turrets/base_turret/base_turret.tscn" id="1_3jwyf"]
+[ext_resource type="Script" path="res://Turrets/TestTurret/TestTurret.gd" id="2_1x0sh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6jxl0"]
 radius = 53.981
@@ -44,8 +44,8 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_h7lsq"]
 
-[node name="base_turret" node_paths=PackedStringArray("y_pivot", "x_pivot") instance=ExtResource("1_ws428")]
-script = ExtResource("2_qw3xn")
+[node name="base_turret" node_paths=PackedStringArray("y_pivot", "x_pivot") instance=ExtResource("1_3jwyf")]
+script = ExtResource("2_1x0sh")
 id = "test_turret"
 display_name = "Test Turret"
 description = "Turret for testing"
@@ -54,10 +54,14 @@ price = 50
 fire_rate = 3.0
 damage = 1.0
 turret_range = 50.0
+loader_capacity = null
+reload_time = null
 horizontal_rotation_speed = 0.1
 rampup_time = 0.5
 y_pivot = NodePath("x_pivot")
 x_pivot = NodePath("x_pivot")
+required_accuracy = null
+target_selection = null
 
 [node name="CollisionShape3D" parent="detection" index="0"]
 shape = SubResource("SphereShape3D_6jxl0")

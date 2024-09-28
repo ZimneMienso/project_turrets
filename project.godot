@@ -38,6 +38,7 @@ folder_colors={
 "res://Levels/tile_libraries/": "yellow",
 "res://Main/camera_rig/": "orange",
 "res://Turrets/155mm/": "purple",
+"res://Turrets/TestTurret/": "purple",
 "res://Turrets/base_turret/": "pink",
 "res://Turrets/hitscan_turret/": "purple",
 "res://Turrets/modules/": "blue",
