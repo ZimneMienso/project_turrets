@@ -1,10 +1,10 @@
 extends Node
 
-#the directories to scan
+## the directories to scan
 const turret_dir = "res://Turrets/turret_scenes"
 const level_dir = "res://Levels/level_scenes"
 
-#the property names to extract
+## the property names to extract
 const level_data:PackedStringArray = [
 	"id",
 	"display_name",
@@ -26,27 +26,27 @@ var buildable_database:Array[Dictionary]
 
 var current_profile_data:Dictionary
 
-#scans a directory for scene files, loads every one and extracts properties based on "extract"
+## scans a directory for scene files, loads every one and extracts properties based on "extract"
 func scan(directory:String, extract:PackedStringArray)->Array[Dictionary] :
 	var result:Array[Dictionary] = []
 	var filelist:PackedStringArray = DirAccess.get_files_at(directory)
 	var filtered:PackedStringArray = []
-	#iterate trough the given directory and filter out non-scene files
+	## iterate trough the given directory and filter out non-scene files
 	for i in filelist.size():
 		if filelist[i].ends_with(".tscn"): filtered.append(filelist[i])
-	#iterate trough the filtered list and load each scene
+	## iterate trough the filtered list and load each scene
 	for i in filtered.size():
 		var path:String = directory + "/" + filtered[i]
 		var scene:Node = load(path).instantiate()
 		var property_dic:Dictionary = {}
-		#iterate trough every property in "extract" and write it in a dictionary
+		## iterate trough every property in "extract" and write it in a dictionary
 		for property in extract.size():
 			var current_property = extract[property]
 			var extracted_property = scene.get(current_property)
 			property_dic[current_property] = extracted_property
 			if extracted_property == null:
 				print("Warning at database.gd, scan(), property %s == null in scene '%s'" % [current_property, filtered[i]])
-		#add scene path to the dictionary
+		## add scene path to the dictionary
 		property_dic["path"] = path
 		scene = null
 		result.append(property_dic)

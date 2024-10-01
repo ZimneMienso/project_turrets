@@ -21,11 +21,11 @@ func _ready():
 
 var buttons:Array[Node]=[]
 func update_build_buttons(ids:PackedStringArray):
-	#clear previously made buttons
+	## clear previously made buttons
 	for i in buttons:
 		i.queue_free()
 	buttons.clear()
-	#instantiate buttons from data, order and add to "buttons" array
+	## instantiate buttons from data, order and add to "buttons" array
 	for i in ids.size():
 		var id:String = ids[i]
 		var new_button = build_button_scene.instantiate()
@@ -45,15 +45,15 @@ func _on_decon_button_pressed():
 func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("mouse_primary"):
-	#managing construction
+	## managing construction
 		if build_mode_selection:
-			#deconstruction
+			## deconstruction
 			if build_mode_selection == "deconstruct":
 				emit_signal("request_deconstruction_at_cursor")
-			#build selected (if it's a buildable)
+			## build selected (if it's a buildable)
 			else:
 				emit_signal("request_build_at_cursor", build_mode_selection)
-	#clearing selection
+	## clearing selection
 	if event.is_action_pressed("mouse_secondary"):
 		build_mode_selection = null
 

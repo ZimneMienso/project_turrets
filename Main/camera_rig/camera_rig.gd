@@ -19,7 +19,7 @@ func _input(event):
 	#		print("success")
 func _physics_process(delta):
 	
-	#Camera controls
+	## Camera controls
 	direction = Vector3.ZERO
 	if Input.is_action_pressed("camera_forward"):
 		direction.z -= 1
@@ -32,7 +32,7 @@ func _physics_process(delta):
 	position.x += direction.rotated(Vector3.UP, rotation.y).x
 	position.z += direction.rotated(Vector3.UP, rotation.y).z
 	
-	#Zoom
+	## Zoom
 	var camera_position = $Camera3D.position
 	if Input.is_action_just_pressed("zoom_in"):
 		camera_position = camera_position * (1 - zoom_factor)
@@ -40,7 +40,7 @@ func _physics_process(delta):
 		camera_position = camera_position * (1 + zoom_factor)
 	$Camera3D.position = camera_position
 	
-	#Rotation
+	## Rotation
 	var camera_rotation = rotation
 	if Input.is_action_pressed("camera_hold_to_rotate"):
 		if abs(mouse_velocity.y * rotation_speed_factor) > mouse_rotation_treshold:

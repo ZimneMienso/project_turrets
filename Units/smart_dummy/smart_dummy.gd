@@ -22,7 +22,7 @@ func _physics_process(_delta):
 		velocity = direction * nav_agent.max_speed
 		look_at(target_pos)
 		rotate(Vector3.UP,deg_to_rad(90))
-	#Core Collision
+	## Core Collision
 	for index in range(get_slide_collision_count()):
 		var collision = get_slide_collision(index)
 		var collider = collision.get_collider()

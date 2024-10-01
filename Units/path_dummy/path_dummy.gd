@@ -27,7 +27,7 @@ func _physics_process(delta):
 	#		collider.receive_damage(damage)
 	#		queue_free()
 	#		break
-#Path movement
+## Path movement
 	$"..".progress = $"..".progress + speed * delta
 
 func receive_damage(received_damage: float):

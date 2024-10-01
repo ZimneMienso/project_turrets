@@ -9,11 +9,11 @@ var unlock_data
 
 func _ready():
 	buildables_data = create_buildables_data(buildables)
-	#temporary as fuck, do it better as soon as player profiles are implemented
+	## temporary as fuck, do it better as soon as player profiles are implemented
 	unlock_data = Unlock_Data.new()
 	unlock_data.unlocked_turrets = buildables_data
-# Creates an array of Buildable_Data objects out of given 
-# array of buildable object scene paths
+## Creates an array of Buildable_Data objects out of given 
+## array of buildable object scene paths
 func create_buildables_data(current_buildables: Array[String]):
 	var result: Array[Buildable_Data] = []
 	for i in current_buildables.size():
