@@ -1,4 +1,4 @@
-extends Base_Turret
+extends BaseTurret
 
 @onready var emiter:GPUParticles3D = $x_pivot/muzzle/GPUParticles3D
 

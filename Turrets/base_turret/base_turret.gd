@@ -1,5 +1,5 @@
 extends Node3D
-class_name Base_Turret
+class_name BaseTurret
 
 #region Exported Properties
 @export_category("Turret Data")
@@ -111,7 +111,7 @@ func perform_targeting() -> bool:
 		rampup -= 1/rampup_time/Engine.physics_ticks_per_second
 		##Get new target if there are any in range
 		if targets:
-			target = Module_Target_Selection.random(targets)
+			target = Target_Selection.random(targets)
 		##If no targets in range, return false
 		else: return false
 	##If there is a target and it is in range, return true
