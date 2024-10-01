@@ -16,9 +16,9 @@ var global_profile:Dictionary
 @onready var root: Node = $".."
 
 func _ready():
-	#initialization
+	## initialization
 	DirAccess.make_dir_absolute(profile_folder)
-	#if there's no global profile, create a fresh one
+	## if there's no global profile, create a fresh one
 	if !FileAccess.file_exists(profile_format(0)):
 		print("No global profile detected, creating fresh (main.gd, _ready())")
 		var fresh_global_profile = {
@@ -26,9 +26,9 @@ func _ready():
 		}
 		save_profile_data(fresh_global_profile,0)
 	global_profile = read_profile_data(0)
-	#if current active profile is slot 0 (means the previous active profile was
-	#deleted or current global profile is fresh), check slot 1, if empty, create
-	#a fresh one and mark it active
+	## if current active profile is slot 0 (means the previous active profile was
+	## deleted or current global profile is fresh), check slot 1, if empty, create
+	## a fresh one and mark it active
 	if global_profile["current_profile"] == 0:
 		if !FileAccess.file_exists(profile_format(1)):
 			print("No profile at slot 1 after creating fresh global pofile, creating fresh (main.gd, _ready())")
@@ -50,16 +50,16 @@ func show_main_menu():
 
 func generate_level(level_id:String):
 	var level_data:Dictionary = Database.get_database_entry(level_id,"level")
-	#close all menus
+	## close all menus
 	for menu in open_menus.size():
 		open_menus[menu].queue_free()
-	#add level and level ui
+	## add level and level ui
 	var level = load(level_data["path"]).instantiate()
 	root.add_child.call_deferred(level)
 	var ui = level_ui_res.instantiate()
 	ui.unlocked_buildables = current_profile["unlocked_buildables"]
 	root.add_child.call_deferred(ui)
-	#connect everything
+	## connect everything
 	level.ui = ui
 	ui.level = level
 	ui.request_build_at_cursor.connect(level._on_build_at_cursor_request)
