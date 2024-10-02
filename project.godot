@@ -42,6 +42,7 @@ folder_colors={
 "res://Turrets/base_turret/": "pink",
 "res://Turrets/hitscan_turret/": "purple",
 "res://Turrets/modules/": "blue",
+"res://Turrets/modules/target_selection/base/": "purple",
 "res://Turrets/turret_scenes/": "orange",
 "res://UI/icons/": "yellow",
 "res://UI/level_ui/": "orange",
@@ -50,7 +51,8 @@ folder_colors={
 "res://Units/path_dummy/": "purple",
 "res://Units/smart_dummy/": "purple",
 "res://Units/test_char/": "purple",
-"res://addons/": "red"
+"res://addons/": "red",
+"res://script_templates/": "red"
 }
 
 [filesystem]

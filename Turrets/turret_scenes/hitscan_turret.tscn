@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dwb4et6xqq23o"]
 
-[ext_resource type="Script" path="res://Turrets/HitscanTurret.gd" id="1_ke0qs"]
+[ext_resource type="Script" path="res://Turrets/hitscan_turret.gd" id="1_ke0qs"]
 [ext_resource type="PackedScene" uid="uid://h7emdjiv204w" path="res://Other/placeholder_explosion/placeholder_explosion.tscn" id="2_4q0ss"]
 
 [sub_resource type="Resource" id="Resource_ukh2u"]

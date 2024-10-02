@@ -45,7 +45,8 @@ class_name BaseTurret
 
 ## Maximum difference between the current barrel rotation and target vector in degrees
 @export var required_accuracy:float = 1
-@export var targeting_mode:Callable = TargetingModes.
+#@export var targeting_mode:TargetSelection
+@export var targeting_mode:TargetSelection
 #endregion Exported Properties
 
 #region Internal Properties
@@ -120,7 +121,7 @@ func perform_targeting() -> bool:
 		rampup -= 1/rampup_time/Engine.physics_ticks_per_second
 		## Get new target if there are any in range
 		if targets:
-			target = target_selection.select(targets)
+			target = targeting_mode.select(targets)
 		## If no targets in range, return false
 		else: return false
 	## If there is a target and it is in range, return true

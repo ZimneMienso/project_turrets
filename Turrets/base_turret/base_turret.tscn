@@ -1,20 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://boogpxiya3ohe"]
+[gd_scene load_steps=2 format=3 uid="uid://boogpxiya3ohe"]
 
 [ext_resource type="Script" path="res://Turrets/base_turret/base_turret.gd" id="1_j0t5m"]
-[ext_resource type="Script" path="res://Turrets/modules/RandomTS.gd" id="2_mwutc"]
 
 [node name="base_turret" type="Node3D"]
 script = ExtResource("1_j0t5m")
-id = null
-display_name = null
-description = null
-icon = null
-price = null
-fire_rate = null
-damage = null
-turret_range = null
-loader_capacity = null
-reload_time = null
 horizontal_rotation_speed = 0.5
 vertical_rotation_speed = 0.5
 
