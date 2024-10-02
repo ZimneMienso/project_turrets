@@ -4,8 +4,21 @@
 
 [node name="base_turret" type="Node3D"]
 script = ExtResource("1_j0t5m")
+id = null
+display_name = null
+description = null
+icon = null
+price = null
+fire_rate = null
+damage = null
+turret_range = null
+loader_capacity = null
+reload_time = null
 horizontal_rotation_speed = 0.5
 vertical_rotation_speed = 0.5
+rampup_time = null
+required_accuracy = null
+targeting_mode = null
 
 [node name="reload_timer" type="Timer" parent="."]
 process_callback = 0
