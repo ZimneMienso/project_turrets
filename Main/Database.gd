@@ -46,7 +46,7 @@ func scan(directory:String, extract:PackedStringArray)->Array[Dictionary] :
 			property_dic[current_property] = extracted_property
 			if extracted_property == null:
 				print("Warning at database.gd, scan(), property %s == null in scene '%s'" % [current_property, filtered[i]])
-		# add scene path to the dictionary
+		## add scene path to the dictionary
 		property_dic["path"] = path
 		scene = null
 		result.append(property_dic)
@@ -63,19 +63,19 @@ func get_database_entry(id:String, category:String)->Dictionary:
 	if category == "level":
 		database = level_database
 	if database == null:
-		print("Error at database.gd, get_database_entry(), invalid category '%s', available categories: turret, level" % category)
+		printerr("Error at database.gd, get_database_entry(), invalid category '%s', available categories: turret, level" % category)
 		return {}
 	if database.size() == 0:
-		print("Warning. Database of category %s empty (database.gd, get_database_entry())" % category)
+		printerr("Warning. Database of category %s empty (database.gd, get_database_entry())" % category)
 	for entry in database.size():
 		if database[entry]["id"] == id:
 			return database[entry]
-	print("Error at database.gd, get_database_entry(), could not find entry with id '%s' id category '%s'"% [id, category])
+	printerr("Error at database.gd, get_database_entry(), could not find entry with id '%s' id category '%s'"% [id, category])
 	return {}
 	
 func get_database_property(id:String, category:String, property:String):
 	var dic:Dictionary = get_database_entry(id,category)
 	if not dic.has(property):
-		print("Error. No key '%s' in '%s', category '%s' (database.gd, get_database_property())"%[property,id,category])
+		printerr("Error. No key '%s' in '%s', category '%s' (database.gd, get_database_property())"%[property,id,category])
 	return dic[property]
 	

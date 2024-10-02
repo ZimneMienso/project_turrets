@@ -3,6 +3,7 @@ class_name BaseTurret
 
 #region Exported Properties
 @export_category("Turret Data")
+
 ## Internal unique identifier
 @export var id:String
 ## Name on buttons etc
@@ -11,7 +12,9 @@ class_name BaseTurret
 @export var description:String
 ## Icon on button
 @export_file var icon:String
+
 @export_subgroup("Turret In-Game Properties")
+
 ## Amount of money deduced when placing this
 @export_range(0,5000,1,"or_greater") var price:int
 ## Maximum shots/second
@@ -30,16 +33,19 @@ class_name BaseTurret
 @export_range(0,100,0.01,"or_greater") var vertical_rotation_speed:float
 ## Time in seconds the turret rotates before achieving max rotation speed
 @export_range(0,10,0.01,"or_greater") var rampup_time:float
-@export_subgroup("Node Configuration")
+
+@export_subgroup("Configuration")
+
 @export var y_pivot:Node3D
 @export var x_pivot:Node3D
 #@export_node_path("Node3D") var y_pivot
 #@export_node_path("Node3D") var z_pivot
-@export_subgroup("Settings")
+
+@export_subgroup("In-game settings")
+
 ## Maximum difference between the current barrel rotation and target vector in degrees
 @export var required_accuracy:float = 1
-## The script used to choose a target from the ones available
-@export var target_selection:TargetSelection
+@export var targeting_mode:Callable = TargetingModes.
 #endregion Exported Properties
 
 #region Internal Properties
@@ -99,9 +105,9 @@ func rotate_to_target(target_position:Vector3) -> bool:
 	rampup += 1/rampup_time/Engine.physics_ticks_per_second
 	y_pivot.rotation.y = clamped_rampup(y_pivot.rotation.y, to_target_horizontal,horizontal_rotation_speed,rampup)
 	x_pivot.rotation.x = clamped_rampup(x_pivot.rotation.x, to_target_vertical,horizontal_rotation_speed,rampup)
-	return abs(
-		y_pivot.rotation.y - to_target_horizontal) < deg_to_rad(required_accuracy) and abs(
-		x_pivot.rotation.x - to_target_vertical) < deg_to_rad(required_accuracy)
+	return abs(y_pivot.rotation.y - to_target_horizontal) < deg_to_rad(required_accuracy) \
+	and \
+	abs(x_pivot.rotation.x - to_target_vertical) < deg_to_rad(required_accuracy)
 
 ## Tries to get a new target if there in not or the previous one moved out of range
 ## Returns true if at the end there is a target or false if not
