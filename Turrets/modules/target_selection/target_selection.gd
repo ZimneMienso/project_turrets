@@ -1,4 +1,4 @@
-extends Resource
+extends GDScript
 class_name TargetSelection
 
 static func select(target_list:Array[Node3D]) -> Node3D:
