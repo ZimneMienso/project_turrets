@@ -16,6 +16,7 @@ func _ready():
 	update_build_buttons(unlocked_buildables)
 	money_label = $money_display/HBoxContainer/money_label
 
+	setup_targeting_mode_menu()
 #func update_money(number_to_display):
 #	money = number_to_display
 
@@ -59,3 +60,22 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func update_money() -> void:
 	money_label.text = str(level.get_money())
+
+#region Right Panel
+@onready var targeting_mode_menu: MenuButton = %targeting_mode_menu
+@onready var targeting_mode_popup: PopupMenu = %targeting_mode_menu.get_popup()
+
+
+func setup_targeting_mode_menu():
+	var modes:Array = Database.targeting_modes
+	## Populating targeting mode menu
+	for i in modes.size():
+		var mode = modes[i]
+		targeting_mode_popup.add_item(mode.get_display_name(),i)
+	## Connecting id_pressed signal
+	targeting_mode_popup.id_pressed.connect(Callable(self,"on_targeting_mode_id_pressed"))
+
+func on_targeting_mode_id_pressed(id: int):
+	var item_index: int = targeting_mode_popup.get_item_index(id)
+	targeting_mode_menu.text = targeting_mode_popup.get_item_text(item_index)
+#endregion Right Panel

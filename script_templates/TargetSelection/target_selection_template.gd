@@ -1,4 +1,4 @@
-extends TargetSelection
+extends TargetingMode
 
 static func select(target_list:Array[Node3D]) -> Node3D:
 	return

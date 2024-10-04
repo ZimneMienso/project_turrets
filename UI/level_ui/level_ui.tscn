@@ -61,4 +61,32 @@ text = "Stonks:"
 layout_mode = 2
 text = "1000V$"
 
+[node name="right_panel" type="PanelContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="turret_settings" type="VBoxContainer" parent="right_panel"]
+layout_mode = 2
+
+[node name="targeting_mode_select" type="VBoxContainer" parent="right_panel/turret_settings"]
+layout_mode = 2
+
+[node name="targeting_mode_label" type="Label" parent="right_panel/turret_settings/targeting_mode_select"]
+layout_mode = 2
+text = "Targeting Mode"
+
+[node name="targeting_mode_menu" type="MenuButton" parent="right_panel/turret_settings/targeting_mode_select"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "
+"
+
 [connection signal="pressed" from="build_menu/buildable_button_container/deconstruct_button/button" to="." method="_on_decon_button_pressed"]

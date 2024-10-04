@@ -45,8 +45,8 @@ class_name BaseTurret
 
 ## Maximum difference between the current barrel rotation and target vector in degrees
 @export var required_accuracy:float = 1
-#@export var targeting_mode:TargetSelection
-@export var targeting_mode:TargetSelection
+#@export var targeting_mode:TargetingMode
+@export var targeting_mode:TargetingMode
 #endregion Exported Properties
 
 #region Internal Properties
