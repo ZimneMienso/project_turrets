@@ -1,6 +1,7 @@
 extends Node
 
-## the directories to scan
+## region Old crap to refactor
+# the directories to scan
 const turret_dir = "res://Turrets/turret_scenes"
 const level_dir = "res://Levels/level_scenes"
 
@@ -52,10 +53,6 @@ func scan(directory:String, extract:PackedStringArray)->Array[Dictionary] :
 		result.append(property_dic)
 	return result
 
-func _ready():
-	level_database = scan(level_dir, level_data)
-	buildable_database.append_array(scan(turret_dir, buildable_data))
-
 func get_database_entry(id:String, category:String)->Dictionary:
 	var database:Array[Dictionary]
 	if category == "buildable":
@@ -63,19 +60,49 @@ func get_database_entry(id:String, category:String)->Dictionary:
 	if category == "level":
 		database = level_database
 	if database == null:
-		print("Error at database.gd, get_database_entry(), invalid category '%s', available categories: turret, level" % category)
+		printerr("Error at database.gd, get_database_entry(), invalid category '%s', available categories: turret, level" % category)
 		return {}
 	if database.size() == 0:
-		print("Warning. Database of category %s empty (database.gd, get_database_entry())" % category)
+		printerr("Warning. Database of category %s empty (database.gd, get_database_entry())" % category)
 	for entry in database.size():
 		if database[entry]["id"] == id:
 			return database[entry]
-	print("Error at database.gd, get_database_entry(), could not find entry with id '%s' id category '%s'"% [id, category])
+	printerr("Error at database.gd, get_database_entry(), could not find entry with id '%s' id category '%s'"% [id, category])
 	return {}
 	
 func get_database_property(id:String, category:String, property:String):
 	var dic:Dictionary = get_database_entry(id,category)
-	if !dic.has(property):
-		print("Error. No key '%s' in '%s', category '%s' (database.gd, get_database_property())"%[property,id,category])
+	if not dic.has(property):
+		printerr("Error. No key '%s' in '%s', category '%s' (database.gd, get_database_property())"%[property,id,category])
 	return dic[property]
+#endregion Old crap to refactor
+
+const target_selection_directory = "res://Turrets/modules/target_selection/"
+const target_selection_format = "tm.gd"
+
+var targeting_modes:Array
+
+## Returns all files ending with "ends_with" in a given directory
+static func scan_filesystem(directory : String, ends_with : String):
+	var files : PackedStringArray = DirAccess.get_files_at(directory)
+	var filtered : PackedStringArray
+	for i in files.size():
+		if files[i].ends_with(ends_with): filtered.append(files[i])
+	return filtered
+
+func _ready():
+	level_database = scan(level_dir, level_data)
+	buildable_database.append_array(scan(turret_dir, buildable_data))
+	targeting_modes = get_targeting_modes()
 	
+#region Targeting modes
+## Gets an array of all targeting mode scripts
+func get_targeting_modes() -> Array[Resource]:
+	var files = scan_filesystem(target_selection_directory, target_selection_format)
+	var result:Array[Resource]
+	for i in files.size():
+		var targeting_script = load(target_selection_directory + files[i])
+		result.append(targeting_script)
+	return result
+	
+#endregion Targeting modes

@@ -25,4 +25,3 @@ func create_buildables_data(current_buildables: Array[String]):
 		data.price = buildable.price
 		result.append(data)
 	return result
-

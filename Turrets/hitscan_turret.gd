@@ -24,7 +24,7 @@ func _ready():
 	
 func _process(_delta):
 	if targets.is_empty() == false:
-		##Looking at enemy
+		#Looking at enemy
 		look_at(targets[0].global_position)
 		rotation = Vector3(0,rotation.y,0)
 		
@@ -47,28 +47,28 @@ func can_shoot():
 
 func _physics_process(_delta):
 	if can_shoot():
-		## Hitscan endpoint
+		#Hitscan endpoint
 		var barrel_forward_vector = $barrel_pivot.get_global_transform().basis.z
 		barrel_forward_vector = barrel_forward_vector.rotated(Vector3.UP, deg_to_rad(180))
-		## todo variable range
+		#todo variable range
 		var hitscan_endpoint = global_position + barrel_forward_vector * 10
 		
-		## Hitscan raycast
+		#Hitscan raycast
 		var space_state = get_world_3d().direct_space_state
 		var querry = PhysicsRayQueryParameters3D.create($barrel_pivot.global_position, hitscan_endpoint)
 		querry.exclude = [self]
 		querry.collision_mask = 0b111
 		var hitscan_intersect = space_state.intersect_ray(querry)
 		
-		## Shooting
+		#Shooting
 		if hitscan_intersect.has("collider"):
 			var hit_object = hitscan_intersect["collider"]
 			if not hit_object.is_in_group("team1") and (hit_object.is_in_group("units") or hit_object.is_in_group("buildings")):
-				## practical effects
+				#practical effects
 				hit_object.receive_damage(1)
 				can_shoot_checklist["fire_rate"] = false
 				$fire_rate_timer.start(fire_perioid)
-				## visual effects
+				#visual effects
 				var hit_effect = hit_effect_scene.instantiate()
 				hit_effect.initialize(0.3, 1)
 				$/root/Main.add_child(hit_effect)

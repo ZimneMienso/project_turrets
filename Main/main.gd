@@ -1,8 +1,8 @@
 extends Node
 
 @export_category("Scene Handles")
-@export var level_ui_res:PackedScene=preload("res://UI/level_ui/level_ui.tscn")
-@export var camera_rig_res:PackedScene=preload("res://Main/camera_rig/camera_rig.tscn")
+@export var level_ui_res:PackedScene = preload("res://UI/level_ui/level_ui.tscn")
+@export var camera_rig_res:PackedScene = preload("res://Main/camera_rig/camera_rig.tscn")
 
 @export_category("Profile Initialization")
 @export var fresh_global_profile_template:Dictionary
@@ -30,17 +30,13 @@ func _ready():
 	## deleted or current global profile is fresh), check slot 1, if empty, create
 	## a fresh one and mark it active
 	if global_profile["current_profile"] == 0:
-		if !FileAccess.file_exists(profile_format(1)):
+		if not FileAccess.file_exists(profile_format(1)):
 			print("No profile at slot 1 after creating fresh global pofile, creating fresh (main.gd, _ready())")
 			save_profile_data(fresh_profile_template,1)
 		global_profile["current_profile"] = 1
 	current_profile = read_profile_data(global_profile["current_profile"])
 	Database.current_profile_data = current_profile
 	show_main_menu()
-	
-
-func _process(delta):
-	pass
 
 func show_main_menu():
 	var menu = preload("res://UI/main_menu/main_menu.tscn").instantiate()

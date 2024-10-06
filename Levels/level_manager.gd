@@ -1,4 +1,5 @@
 extends Node
+class_name LevelManager
 
 @onready var level = $".."
 @onready var camera = $"../camera_rig/Camera3D"
@@ -11,7 +12,7 @@ extends Node
 
 ## set by Main using setter function at level
 var ui:Node
-
+## all written TileData with their Vector3i coords as keys
 var tile_data_dic: Dictionary = {}
 var money: int: 
 	set(new_value): level.money = new_value
@@ -48,6 +49,13 @@ func get_tile_under_cursor():
 	if ray_intesect:
 		return tile_map.local_to_map(ray_intesect.position)
 
+func get_tile_data(tile:Vector3i) -> Tile_Data:
+	if tile_data_dic.has(tile):
+		return tile_data_dic[tile]
+	else:
+		print("level_manager, get_tile_data(): No tile data saved at %s" % (tile)) 
+		return
+
 func _on_build_at_cursor_request(id:String) -> void:
 	## Check if there's a tile under cursor
 	var tile = get_tile_under_cursor()
@@ -81,11 +89,11 @@ func _on_build_at_cursor_request(id:String) -> void:
 func _on_deconstruction_at_cursor_request() -> void:
 	## check if there's anthting there
 	var tile = get_tile_under_cursor()
-	if !tile_data_dic.has(tile):
+	if not tile_data_dic.has(tile):
 		print("Nothing to deconstruct")
 		return
 	var tile_data: Tile_Data = tile_data_dic[tile]
-	## check if it can be deconstructed
+	#check if it can be deconstructed
 	if !tile_data.deconstruction_value:
 		print("Can't be deconstructed")
 		return
@@ -105,7 +113,7 @@ func nav_server_setup() -> void:
 	nav_region.bake_navigation_mesh()
 	await get_tree().physics_frame
 
-## Takes a Path3D and assign the path from -> to as its curve
+#Takes a Path3D and assign the path from -> to as its curve
 func create_path(startpoint:Vector3, endpoint:Vector3, map:RID, path:Path3D, optimize:bool=true, curveture_factor:float=0.1) -> void:
 	var path_points:PackedVector3Array
 	while path_points.size() == 0:
