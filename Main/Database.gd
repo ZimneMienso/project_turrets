@@ -97,11 +97,12 @@ func _ready():
 	
 #region Targeting modes
 ## Gets an array of all targeting mode scripts
-func get_targeting_modes() -> Array:
+func get_targeting_modes() -> Array[Resource]:
 	var files = scan_filesystem(target_selection_directory, target_selection_format)
-	var result:Array
+	var result:Array[Resource]
 	for i in files.size():
-		result.append(load(target_selection_directory + files[i]))
+		var targeting_script = load(target_selection_directory + files[i])
+		result.append(targeting_script)
 	return result
 	
 #endregion Targeting modes

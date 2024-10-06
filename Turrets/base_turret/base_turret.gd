@@ -45,8 +45,8 @@ class_name BaseTurret
 
 ## Maximum difference between the current barrel rotation and target vector in degrees
 @export var required_accuracy:float = 1
-#@export var targeting_mode:TargetingMode
-@export var targeting_mode:TargetingMode
+var targeting_mode: Resource = preload("res://Turrets/modules/target_selection/first_in_range_tm.gd")
+
 #endregion Exported Properties
 
 #region Internal Properties
@@ -76,6 +76,8 @@ var rampup:float:
 func _ready():
 	fire_period = 1/fire_rate
 	ammunition = loader_capacity
+	if targeting_mode == null:
+		printerr("Turret has no targeting mode")
 
 func _physics_process(delta):
 	if perform_targeting():
@@ -113,6 +115,9 @@ func rotate_to_target(target_position:Vector3) -> bool:
 ## Tries to get a new target if there in not or the previous one moved out of range
 ## Returns true if at the end there is a target or false if not
 func perform_targeting() -> bool:
+	# TEMPORARY WORKAROUND FOR THE STATIC TYPING KEFFUFLE
+	if targeting_mode == null:
+		return false
 	## If no target or target out of range
 	if not target or not targets.has(target):
 		## Remove target

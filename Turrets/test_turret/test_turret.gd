@@ -6,6 +6,13 @@ func _physics_process(delta):
 	super(delta)
 	if within_req_acc and salvo_ready:
 		shoot()
+
+
+func _ready() -> void:
+	super()
+	
+	
+
 func shoot():
 	var hit_unit:Node3D = Module_Hitscan.project_raycast(
 		x_pivot.global_position, get_barrel_vector(turret_range),
