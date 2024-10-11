@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://crw1g10ecu8oa"]
 
 [ext_resource type="Script" path="res://Buildings/path_spawner/path_spawner.gd" id="1_hypu2"]
-[ext_resource type="PackedScene" uid="uid://b2a1no0wotqy5" path="res://Units/path_dummy/path_dummy.tscn" id="2_y78xi"]
+[ext_resource type="PackedScene" uid="uid://b2a1no0wotqy5" path="res://Units/base_unit/base_unit.tscn" id="2_y78xi"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wthbc"]
 

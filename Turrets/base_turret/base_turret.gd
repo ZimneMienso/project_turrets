@@ -65,7 +65,7 @@ var salvo_ready:bool = true
 ## Is the brrel rotated within the margin of required_accuracy
 var within_req_acc:bool = false
 ## Reverse fire rate
-var fire_perioid:float
+var fire_period:float
 ## Current rotation rampup
 var rampup:float:
 	set(new_value):

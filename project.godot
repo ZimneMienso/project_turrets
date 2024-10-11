@@ -46,10 +46,11 @@ folder_colors={
 "res://UI/icons/": "yellow",
 "res://UI/level_ui/": "orange",
 "res://UI/main_menu/": "orange",
+"res://Units/base_unit/": "pink",
 "res://Units/dumb_dummy/": "purple",
-"res://Units/path_dummy/": "purple",
 "res://Units/smart_dummy/": "purple",
 "res://Units/test_char/": "purple",
+"res://Units/unit_scenes/": "orange",
 "res://addons/": "red",
 "res://script_templates/": "red"
 }

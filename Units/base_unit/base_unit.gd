@@ -1,4 +1,7 @@
+class_name BaseUnit
 extends CharacterBody3D
+
+@export var id: String
 
 @export var speed: float = 10
 @export var max_health: float = 3

@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2a1no0wotqy5"]
+[gd_scene load_steps=6 format=3 uid="uid://b2a1no0wotqy5"]
 
-[ext_resource type="Script" path="res://Units/path_dummy/path_dummy.gd" id="1_78rrv"]
+[ext_resource type="Script" path="res://Units/base_unit/base_unit.gd" id="1_78rrv"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mto5w"]
 points = PackedVector3Array(-0.5025, -1.084, -0.1675, -0.5025, -1.084, 0.1675, 0, 1.084, -0.1675, 0.5025, -1.084, -0.1675, 0.5025, -1.084, 0.1675, 0, 1.084, 0.1675)
@@ -8,7 +8,12 @@ points = PackedVector3Array(-0.5025, -1.084, -0.1675, -0.5025, -1.084, 0.1675, 0
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_aublv"]
 points = PackedVector3Array(-0.6275, -1.24, -0.1675, -0.6275, -1.24, 0.1675, 0, 1.24, -0.1675, 0.6275, -1.24, -0.1675, 0.6275, -1.24, 0.1675, 0, 1.24, 0.1675)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pabh3"]
+resource_local_to_scene = true
+
 [sub_resource type="PrismMesh" id="PrismMesh_k3vbi"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_pabh3")
 size = Vector3(1.255, 2.48, 0.335)
 
 [node name="path_dummy" type="PathFollow3D"]

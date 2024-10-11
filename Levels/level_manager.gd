@@ -18,13 +18,21 @@ var money: int:
 	set(new_value): level.money = new_value
 	get: return level.money
 var level_map:RID
+#var spawners:Array[Spawner]
+var spawners:Array[Node]
 
 func _ready():
+	spawners = get_tree().get_nodes_in_group("spawners")
+	#var spawner_nodes = get_tree().get_nodes_in_group("spawners")
+	#for i in spawner_nodes.size():
+	#	if spawner_nodes[i] is Spawner: spawners.append(spawner_nodes[i])
 	call_deferred("nav_server_setup")
 	for i in 6:
 		await get_tree().physics_frame
-	create_path_for_spawners()
-	
+	call_deferred("create_path_for_spawners")
+	initialize_path_pointer()
+	print(spawners)
+
 var prev_cell
 func _physics_process(_delta):
 	var tile_coords = get_tile_under_cursor()
@@ -135,8 +143,23 @@ func create_path(startpoint:Vector3, endpoint:Vector3, map:RID, path:Path3D, opt
 			curve.set_point_out(i,(next_p-prev_p)*curveture_factor)
 
 func create_path_for_spawners():
-	var spawners:Array[Node] = get_tree().get_nodes_in_group("spawners")
 	for i in spawners.size():
-		var spawner:Node3D = spawners[i]
+		var spawner:Spawner = spawners[i]
 		create_path(spawner.global_position,core.global_position,level_map,spawner.path)
 		spawner.path.global_position = Vector3.ZERO
+
+#region Enemy Spawning
+var spawnlist_types_filepaths: Array[String]
+var spawnlist_counts: Array[int]
+
+func initialize_path_pointer():
+	var path_pointer = PathFollow3D.new()
+	path_pointer.rotation_mode = PathFollow3D.ROTATION_Y
+	path_pointer.use_model_front = true
+	path_pointer.loop = false
+	for i in spawners.size():
+		spawners[i].path_pointer = path_pointer
+
+func even_distribution():
+	pass
+#endregion Enemy Spawning

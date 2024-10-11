@@ -77,11 +77,6 @@ func get_database_property(id:String, category:String, property:String):
 	return dic[property]
 #endregion Old crap to refactor
 
-const target_selection_directory = "res://Turrets/modules/target_selection/"
-const target_selection_format = "tm.gd"
-
-var targeting_modes:Array
-
 ## Returns all files ending with "ends_with" in a given directory
 static func scan_filesystem(directory : String, ends_with : String):
 	var files : PackedStringArray = DirAccess.get_files_at(directory)
@@ -94,8 +89,17 @@ func _ready():
 	level_database = scan(level_dir, level_data)
 	buildable_database.append_array(scan(turret_dir, buildable_data))
 	targeting_modes = get_targeting_modes()
+	var test = preload("res://Units/unit_scenes/path_dummy_red_ut.tscn")
+	
 	
 #region Targeting modes
+
+const target_selection_directory = "res://Turrets/modules/target_selection/"
+const target_selection_format = "_tm.gd"
+
+## Reources in this case are scripts of type TargetingMode
+var targeting_modes:Array[Resource]
+
 ## Gets an array of all targeting mode scripts
 func get_targeting_modes() -> Array[Resource]:
 	var files = scan_filesystem(target_selection_directory, target_selection_format)
@@ -105,4 +109,13 @@ func get_targeting_modes() -> Array[Resource]:
 		result.append(targeting_script)
 	return result
 	
+#func get_property(object, property: StringName):
+	
+
 #endregion Targeting modes
+
+#region Units
+
+
+
+#endregion Units
