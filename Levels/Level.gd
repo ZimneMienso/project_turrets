@@ -1,13 +1,17 @@
 extends Node
+class_name BaseLevel
 
 @export_category("Level Data")
-@export var id:String
-@export var display_name:String
-@export var description:String
-@export var button_position:Vector2
-@export_file var icon:String
+
+@export var id: String
+@export var display_name: String
+@export var description: String
+@export var button_position: Vector2
+@export_file var icon: String
+
 @export_category("Config")
-@export var money:int
+
+@export var money: int
 
 @onready var level_manager:Node = $level_manager
 

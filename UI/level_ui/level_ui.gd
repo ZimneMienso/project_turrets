@@ -12,7 +12,6 @@ var level: Node:
 		level = new_value
 		await level.ready
 		level_manager = level.level_manager
-		print(level_manager)
 var level_manager: LevelManager
 var money_label: Label
 var unlocked_buildables: PackedStringArray

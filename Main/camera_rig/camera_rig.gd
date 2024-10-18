@@ -50,5 +50,3 @@ func _physics_process(delta):
 
 		rotation = camera_rotation.clamp(Vector3(-0.45,-3,0),Vector3(0.6,3,0))
 		mouse_velocity = Vector3.ZERO
-
-

@@ -77,21 +77,29 @@ func get_database_property(id:String, category:String, property:String):
 	return dic[property]
 #endregion Old crap to refactor
 
-## Returns all files ending with "ends_with" in a given directory
+## Returns all paths ending with "ends_with" in a given directory
 static func scan_filesystem(directory : String, ends_with : String):
 	var files : PackedStringArray = DirAccess.get_files_at(directory)
 	var filtered : PackedStringArray
 	for i in files.size():
-		if files[i].ends_with(ends_with): filtered.append(files[i])
+		if files[i].ends_with(ends_with): filtered.append(directory + files[i])
 	return filtered
+
+func load_scene_array(scene_paths: PackedStringArray) -> Array[PackedScene]:
+	var output: Array[PackedScene]
+	for i in scene_paths.size():
+		output.append(load(scene_paths[i]))
+	return output
 
 func _ready():
 	level_database = scan(level_dir, level_data)
 	buildable_database.append_array(scan(turret_dir, buildable_data))
+	## Getting targeting modes
 	targeting_modes = get_targeting_modes()
-	var test = preload("res://Units/unit_scenes/path_dummy_red_ut.tscn")
-	
-	
+	## Getting unit scenes and unit ids
+	units = load_scene_array(scan_filesystem(unit_directory, unit_format))
+	unit_ids = get_unit_ids(units)
+
 #region Targeting modes
 
 const target_selection_directory = "res://Turrets/modules/target_selection/"
@@ -105,17 +113,28 @@ func get_targeting_modes() -> Array[Resource]:
 	var files = scan_filesystem(target_selection_directory, target_selection_format)
 	var result:Array[Resource]
 	for i in files.size():
-		var targeting_script = load(target_selection_directory + files[i])
+		var targeting_script = load(files[i])
 		result.append(targeting_script)
 	return result
-	
-#func get_property(object, property: StringName):
-	
 
 #endregion Targeting modes
 
 #region Units
 
+const unit_directory = "res://Units/unit_scenes/"
+const unit_format = "_ut.tscn"
 
+## Array of all unit scenes
+var units: Array[PackedScene]
+## Corresponding array of unit ids
+var unit_ids: PackedStringArray
+
+func get_unit_ids(unit_scenes: Array[PackedScene]) -> PackedStringArray:
+	var output: PackedStringArray
+	for i in unit_scenes.size():
+		var scene = unit_scenes[i]
+		var nodetree: BaseUnit = scene.instantiate() as BaseUnit
+		output.append(nodetree.id)
+	return output
 
 #endregion Units

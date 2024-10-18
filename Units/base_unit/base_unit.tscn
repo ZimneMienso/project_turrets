@@ -2,12 +2,6 @@
 
 [ext_resource type="Script" path="res://Units/base_unit/base_unit.gd" id="1_78rrv"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mto5w"]
-points = PackedVector3Array(-0.5025, -1.084, -0.1675, -0.5025, -1.084, 0.1675, 0, 1.084, -0.1675, 0.5025, -1.084, -0.1675, 0.5025, -1.084, 0.1675, 0, 1.084, 0.1675)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_aublv"]
-points = PackedVector3Array(-0.6275, -1.24, -0.1675, -0.6275, -1.24, 0.1675, 0, 1.24, -0.1675, 0.6275, -1.24, -0.1675, 0.6275, -1.24, 0.1675, 0, 1.24, 0.1675)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pabh3"]
 resource_local_to_scene = true
 
@@ -16,17 +10,23 @@ resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_pabh3")
 size = Vector3(1.255, 2.48, 0.335)
 
-[node name="path_dummy" type="PathFollow3D"]
-rotation_mode = 1
-use_model_front = true
-loop = false
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mto5w"]
+points = PackedVector3Array(-0.5025, -1.084, -0.1675, -0.5025, -1.084, 0.1675, 0, 1.084, -0.1675, 0.5025, -1.084, -0.1675, 0.5025, -1.084, 0.1675, 0, 1.084, 0.1675)
 
-[node name="body" type="CharacterBody3D" parent="." groups=["units"]]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_aublv"]
+points = PackedVector3Array(-0.6275, -1.24, -0.1675, -0.6275, -1.24, 0.1675, 0, 1.24, -0.1675, 0.6275, -1.24, -0.1675, 0.6275, -1.24, 0.1675, 0, 1.24, 0.1675)
+
+[node name="body" type="CharacterBody3D" groups=["units"]]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_78rrv")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="body"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 1.74846e-07, -7.64274e-15, 0, -4.37114e-08, -1, -1.74846e-07, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PrismMesh_k3vbi")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 1.74846e-07, -7.64274e-15, 0, -4.37114e-08, -1, -1.74846e-07, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_mto5w")
 
@@ -39,8 +39,4 @@ collision_mask = 4
 transform = Transform3D(-1, -8.74232e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74232e-08, -1, 4.37114e-08, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_aublv")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 1.74846e-07, -7.64274e-15, 0, -4.37114e-08, -1, -1.74846e-07, 1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("PrismMesh_k3vbi")
-
-[connection signal="body_entered" from="hurtbox" to="body" method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

@@ -59,6 +59,11 @@ folder_colors={
 
 import/fbx/enabled=false
 
+[global_group]
+
+spawners="All nodes inheriting from Spawner class"
+units=""
+
 [input]
 
 camera_right={
