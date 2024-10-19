@@ -137,4 +137,7 @@ func get_unit_ids(unit_scenes: Array[PackedScene]) -> PackedStringArray:
 		output.append(nodetree.id)
 	return output
 
+func get_unit(id: String) -> PackedScene:
+	return units[unit_ids.find(id)]
+
 #endregion Units

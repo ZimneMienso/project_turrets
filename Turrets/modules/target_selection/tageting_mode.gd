@@ -2,7 +2,7 @@ extends Resource
 class_name TargetingMode
 
 static func select(target_list:Array[Node3D]) -> Node3D:
-	target_list
+	var pass_var = target_list
 	printerr("TargetingMode base class has been used. This will always return null.")
 	return
 

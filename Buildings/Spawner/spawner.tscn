@@ -10,11 +10,10 @@ resource_local_to_scene = true
 [node name="spawner" type="Node3D" groups=["spawners"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 16)
 script = ExtResource("1_c11hr")
-spawn_period = 5.0
 
-[node name="Timer" type="Timer" parent="."]
+[node name="min_spawn_timer" type="Timer" parent="."]
 process_callback = 0
-autostart = true
+one_shot = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_wthbc")
@@ -22,4 +21,9 @@ mesh = SubResource("CylinderMesh_wthbc")
 [node name="path" type="Path3D" parent="."]
 curve = SubResource("Curve3D_8u06v")
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="path_sampler_template" type="PathFollow3D" parent="."]
+rotation_mode = 1
+use_model_front = true
+loop = false
+
+[connection signal="timeout" from="min_spawn_timer" to="." method="_on_min_spawn_timer_timeout"]

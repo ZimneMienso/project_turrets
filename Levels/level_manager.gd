@@ -27,7 +27,7 @@ func _ready():
 	for i in 6:
 		await get_tree().physics_frame
 	call_deferred("create_path_for_spawners")
-	initialize_path_pointer()
+	#initialize_path_pointer()
 
 var prev_cell
 func _physics_process(_delta):
@@ -156,6 +156,7 @@ func get_spawners() -> Array[Spawner]:
 var spawnlist_ids: PackedStringArray
 var spawnlist_counts: PackedInt32Array
 
+# Possibly and thankfully depricated
 func initialize_path_pointer():
 	var path_pointer = PathFollow3D.new()
 	path_pointer.rotation_mode = PathFollow3D.ROTATION_Y

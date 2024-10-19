@@ -1,8 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://bq64sqvifc0t8"]
+[gd_scene load_steps=8 format=3 uid="uid://bq64sqvifc0t8"]
 
 [ext_resource type="PackedScene" uid="uid://463piyifvnco" path="res://Levels/base_level.tscn" id="1_ubeqk"]
 [ext_resource type="PackedScene" uid="uid://bslh3ainttyx2" path="res://Buildings/Spawner/spawner.tscn" id="2_8qn1i"]
-[ext_resource type="PackedScene" uid="uid://b2a1no0wotqy5" path="res://Units/base_unit/base_unit.tscn" id="3_fsy00"]
+[ext_resource type="Script" path="res://Buildings/Spawner/SpawnPool.gd" id="3_udpmh"]
+
+[sub_resource type="Curve" id="Curve_n42uh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Resource" id="Resource_ph14a"]
+script = ExtResource("3_udpmh")
+type_id = "red"
+unit_count = 50
+curve = SubResource("Curve_n42uh")
+spawn_cooldown = 1.0
+
+[sub_resource type="Curve" id="Curve_nse0p"]
+_data = [Vector2(0.228723, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Resource" id="Resource_o4ema"]
+script = ExtResource("3_udpmh")
+type_id = "blue"
+unit_count = 15
+curve = SubResource("Curve_nse0p")
+spawn_cooldown = 3.0
 
 [node name="level" instance=ExtResource("1_ubeqk")]
 id = "test_level"
@@ -14,15 +36,10 @@ money = 1000
 
 [node name="spawner" parent="." index="7" instance=ExtResource("2_8qn1i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 54)
-spawnee_scene = ExtResource("3_fsy00")
-spawn_period = 2.0
 
 [node name="spawner2" parent="." index="8" instance=ExtResource("2_8qn1i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83, 1, -10)
-spawnee_scene = ExtResource("3_fsy00")
-spawn_period = 3.0
+spawn_pools = Array[ExtResource("3_udpmh")]([SubResource("Resource_ph14a"), SubResource("Resource_o4ema")])
 
 [node name="spawner3" parent="." index="9" instance=ExtResource("2_8qn1i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 1, -51)
-spawnee_scene = ExtResource("3_fsy00")
-spawn_period = 1.5
